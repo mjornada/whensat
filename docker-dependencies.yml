@@ -1,0 +1,114 @@
+version: '3'
+services:
+  redis:
+    image: redis:4-alpine
+    ports:
+      - 6379:6379
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - 5672:5672
+      - 15672:15672
+  hal-config:
+    image: registry.nexus.azi.srv.br/hal/cloud/hal-config:3.4.0
+    ports:
+      - 8000:8000
+    environment:
+      - JAVA_MEMORY=-Xmx256m -Xms128m -Xss512k
+      - DEPENDS_ON=rabbitmq:5672
+    env_file:
+      - variables.env
+  hal-discovery:
+    image: registry.nexus.azi.srv.br/hal/cloud/hal-discovery:3.2.1
+    ports:
+      - 8001:8001
+    environment:
+      - JAVA_MEMORY=-Xmx256m -Xms128m -Xss512k
+      - DEPENDS_ON=hal-config:8000
+    env_file:
+      - variables.env
+  hal-gateway:
+    image: registry.nexus.azi.srv.br/hal/cloud/hal-gateway2:1.8.1
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - JAVA_MEMORY=-Xmx512m -Xms128m -Xss1024k
+      - DEPENDS_ON=hal-discovery:8001
+      - DEPENDS_ON_TIMEOUT=240
+    volumes:
+      - ./.certificados:/root/az/development
+      - ./.letsencrypt:/etc/letsencrypt
+    env_file:
+      - variables.env
+  setup-admin-app:
+    image: registry.nexus.azi.srv.br/hal/setup-admin-app:4.2.1-ALPHA.10
+    env_file:
+      - variables.env
+  setup-admin-api:
+    image: registry.nexus.azi.srv.br/hal/setup-admin-api:4.2.1-ALPHA.10
+    ports:
+      - 8002:8002
+    environment:
+      - server.port=8002
+      - DEPENDS_ON=hal-gateway:80
+      - JAVA_MEMORY=-Xmx1024m -Xms512m -Xss512k
+    env_file:
+      - variables.env
+    extra_hosts:
+      - localhost:172.17.0.1
+  setup-public-api:
+    image: registry.nexus.azi.srv.br/hal/setup-public-api:4.2.1-ALPHA.10
+    ports:
+      - 8004:8004
+    environment:
+      - server.port=8004
+      - DEPENDS_ON=setup-admin-api:8002
+      - DEPENDS_ON_TIMEOUT=400
+      - JAVA_MEMORY=-Xmx1024m -Xms512m -Xss512k
+    env_file:
+      - variables.env
+  hal-keycloak:
+    image: registry.nexus.azi.srv.br/hal/cloud/hal-keycloak-spi:1.9.3-ALPHA.8
+    ports:
+      - 8080:8080
+    environment:
+      - DEPENDS_ON=setup-admin-api:8002
+      - DEPENDS_ON_TIMEOUT=300
+    env_file:
+      - variables.env
+  setup-session-api:
+    image: registry.nexus.azi.srv.br/hal/setup-session-api:4.2.1-ALPHA.10
+    ports:
+      - 8003:8003
+    environment:
+      - server.port=8003
+      - DEPENDS_ON=setup-admin-api:8002,hal-keycloak:8080
+      - DEPENDS_ON_TIMEOUT=300
+      - JAVA_MEMORY=-Xmx1024m -Xms512m -Xss512k
+    env_file:
+      - variables.env
+    extra_hosts:
+      - localhost:172.17.0.1
+  setup-consulta-api:
+    image: registry.nexus.azi.srv.br/hal/setup-consulta-api:4.2.1-ALPHA.10
+    ports:
+      - 8005:8005
+    environment:
+      - server.port=8005
+      - DEPENDS_ON=setup-session-api:8003
+      - DEPENDS_ON_TIMEOUT=400
+      - JAVA_MEMORY=-Xmx1024m -Xms512m -Xss512k
+    env_file:
+      - variables.env
+  hal-keycloak-migration:
+    image: registry.nexus.azi.srv.br/hal/cloud/hal-keycloak-migration:1.0.0
+    environment:
+      - DEPENDS_ON=setup-consulta-api:8005,hal-keycloak:8080
+      - DEPENDS_ON_TIMEOUT=600
+    env_file:
+      - variables.env
+networks:
+  default:
+    external:
+      name: siganet
