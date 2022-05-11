@@ -4,11 +4,15 @@ services:
     image: redis:4-alpine
     ports:
       - 6379:6379
+    command: redis-server --requirepass redis
   rabbitmq:
     image: rabbitmq:3-management-alpine
     ports:
       - 5672:5672
       - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=rabbitmq
+      - RABBITMQ_DEFAULT_PASS=rabbitmq
   hal-config:
     image: registry.nexus.azi.srv.br/hal/cloud/hal-config:3.4.0
     ports:

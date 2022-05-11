@@ -1,5 +1,12 @@
+## InteliJ
 .idea
 
+## back-end
+target
 *.iml
 
-target
+## arquivos padrão do hal-cli
+.docker-database.yml
+.oracle/
+.docker-portainer.yml
+variables.env
