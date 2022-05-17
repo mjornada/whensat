@@ -1,5 +1,6 @@
 package br.com.azi.projeto.domain.interfaces.dataprovider;
 
+import br.com.azi.projeto.domain.dto.ListaPaginadaDTO;
 import br.com.azi.projeto.domain.entity.Projeto;
 
 public interface ProjetoDataProvider {
@@ -9,4 +10,6 @@ public interface ProjetoDataProvider {
     Projeto inserir(Projeto projeto);
 
     Projeto atualizar(Projeto projeto);
+
+    ListaPaginadaDTO<Projeto> buscarPorFiltro(Projeto.Filtro filtro);
 }

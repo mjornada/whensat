@@ -10,8 +10,11 @@ import org.springframework.context.annotation.Configuration;
 public class AtualizarProjetoFactory {
 
     @Bean
-    public AtualizarProjetoUseCase createAtualizarProjetoUseCase(ProjetoDataProvider projetoDataProvider, AtualizarProjetoOutputDataConverter converter) {
-        return AtualizarProjetoUseCase.builder().projetoDataProvider(projetoDataProvider).atualizarProjetoOutputDataConverter(converter).build();
+    public AtualizarProjetoUseCase createAtualizarProjetoUseCase(ProjetoDataProvider projetoDataProvider, AtualizarProjetoOutputDataConverter atualizarProjetoOutputDataConverter) {
+        return AtualizarProjetoUseCase.builder()
+                .projetoDataProvider(projetoDataProvider)
+                .atualizarProjetoOutputDataConverter(atualizarProjetoOutputDataConverter)
+                .build();
     }
 
     @Bean

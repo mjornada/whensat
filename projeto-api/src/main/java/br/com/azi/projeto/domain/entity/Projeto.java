@@ -2,6 +2,7 @@ package br.com.azi.projeto.domain.entity;
 
 import br.com.azi.projeto.domain.constant.projeto.EnumCategoria;
 import br.com.azi.projeto.domain.constant.projeto.EnumSituacao;
+import br.com.azi.projeto.domain.dto.FiltroBaseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -65,4 +66,12 @@ public class Projeto {
 
     @Column(name = "PR_URI_LOGO", length = 500)
     private String uriLogo;
+
+    @Builder
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Filtro extends FiltroBaseDTO {
+        String nome;
+    }
 }

@@ -13,11 +13,11 @@ public class InserirProjetoUseCaseFactory {
     @Bean
     public InserirProjetoUseCase createInserirProjetoUseCase(ProjetoProperties projetoProperties,
                                                              ProjetoDataProvider projetoDataProvider,
-                                                             InserirProjetoOutputDataConverter converter) {
+                                                             InserirProjetoOutputDataConverter inserirProjetoOutputDataConverter) {
         return InserirProjetoUseCase.builder()
                 .projetoProperties(projetoProperties)
                 .projetoDataProvider(projetoDataProvider)
-                .inserirProjetoOutputDataConverter(converter)
+                .inserirProjetoOutputDataConverter(inserirProjetoOutputDataConverter)
                 .build();
     }
 

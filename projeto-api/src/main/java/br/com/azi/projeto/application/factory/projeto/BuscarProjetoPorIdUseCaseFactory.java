@@ -10,10 +10,10 @@ import org.springframework.context.annotation.Configuration;
 public class BuscarProjetoPorIdUseCaseFactory {
 
     @Bean
-    public BuscarProjetoPorIdUseCase createBuscarProjetoPorIdUseCase(ProjetoDataProvider projetoDataProvider, BuscarProjetoPorIdOutputDataConverter converter) {
+    public BuscarProjetoPorIdUseCase createBuscarProjetoPorIdUseCase(ProjetoDataProvider projetoDataProvider, BuscarProjetoPorIdOutputDataConverter buscarProjetoPorIdOutputDataConverter) {
         return BuscarProjetoPorIdUseCase.builder()
                 .projetoDataProvider(projetoDataProvider)
-                .converter(converter)
+                .converter(buscarProjetoPorIdOutputDataConverter)
                 .build();
     }
 
