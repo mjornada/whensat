@@ -1,0 +1,7 @@
+changesetList:
+  - name: 001-config-inicial
+    operation: update
+    filePath: /migration/configuration/changesets/001-config-inicial.json
+  - name: 002-carga-feriados
+    operation: update
+    filePath: /migration/configuration/changesets/002-carga-feriados.json

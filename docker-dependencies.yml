@@ -32,7 +32,7 @@ services:
     env_file:
       - variables.env
   hal-gateway:
-    image: registry.nexus.azi.srv.br/hal/cloud/hal-gateway2:1.8.1
+    image: gateway2:1.8.2-TREINAMENTO.2
     ports:
       - 80:80
       - 443:443

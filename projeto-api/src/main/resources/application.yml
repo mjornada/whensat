@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: projeto
+server:
+  servlet:
+    context-path: /projeto/api
+application:
+  version: @project.version@
+  name: @project.name@
+  default-logo-path: /img/logo.png
+
+hal:
+  config:
+    migration:
+      enabled: true
+      basePath: /migration/configuration/master.yml
+
+keycloak:
+  enabled: true
+  realm: az
+  auth-server-url: http://${DOMAIN}/auth/
+  ssl-required: external
+  resource: projeto-api
+  principal-attribute: preferred_username
+  bearer-only: false
+  public-client: false
+  credentials:
+    secret: 300d0260-541b-4493-a4ab-bff926e5e4b3
+#TODO adicionar no az-realm.json o secret correto
+  securityConstraints:
+    - authRoles:
+        - '*'
+      securityCollections:
+        - patterns:
+            - /projetos/*
+  policy-enforcer-config:
+    enforcement-mode: PERMISSIVE
+    lazy-load-paths: true
+    claimInformationPointConfig:
+      claims[dominio]: "{request.header['dominio']}"
+    paths:
+      - name: PerfilSistema.Projeto
+        path: /projetos/*
+
