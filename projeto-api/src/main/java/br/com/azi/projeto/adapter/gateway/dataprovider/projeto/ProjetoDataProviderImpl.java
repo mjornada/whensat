@@ -1,20 +1,15 @@
-package br.com.azi.projeto.adapter.gateway.dataprovider;
+package br.com.azi.projeto.adapter.gateway.dataprovider.projeto;
 
 import br.com.azi.projeto.adapter.gateway.dataprovider.converter.FiltroConverter;
-import br.com.azi.projeto.adapter.gateway.dataprovider.repository.ProjetoRepository;
-import br.com.azi.projeto.domain.dto.FiltroBaseDTO;
 import br.com.azi.projeto.domain.dto.ListaPaginadaDTO;
 import br.com.azi.projeto.domain.entity.Projeto;
 import br.com.azi.projeto.domain.entity.QProjeto;
-import br.com.azi.projeto.domain.exception.ProjetoNaoEncontradoException;
 import br.com.azi.projeto.domain.interfaces.dataprovider.ProjetoDataProvider;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @AllArgsConstructor
@@ -24,8 +19,7 @@ public class ProjetoDataProviderImpl implements ProjetoDataProvider {
 
     @Override
     public Projeto buscarPorId(Long id) {
-        return projetoRepository.findById(id)
-                .orElseThrow(() -> new ProjetoNaoEncontradoException(id));
+        return projetoRepository.findById(id).orElse(null);
     }
 
     @Override

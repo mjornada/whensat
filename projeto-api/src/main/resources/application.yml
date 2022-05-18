@@ -14,6 +14,10 @@ hal:
     migration:
       enabled: true
       basePath: /migration/configuration/master.yml
+  filemanager:
+    migration:
+      enabled: true
+      base-path: filemanager
 
 keycloak:
   enabled: true

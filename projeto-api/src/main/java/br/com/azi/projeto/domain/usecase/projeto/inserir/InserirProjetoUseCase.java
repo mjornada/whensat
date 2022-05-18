@@ -2,8 +2,6 @@ package br.com.azi.projeto.domain.usecase.projeto.inserir;
 
 import br.com.azi.projeto.application.config.ProjetoProperties;
 import br.com.azi.projeto.domain.commons.date.CalendarioUtils;
-import br.com.azi.projeto.domain.constant.projeto.EnumCategoria;
-import br.com.azi.projeto.domain.constant.projeto.EnumSituacao;
 import br.com.azi.projeto.domain.entity.Projeto;
 import br.com.azi.projeto.domain.exception.DataFinalMenorQueDataInicialException;
 import br.com.azi.projeto.domain.exception.DataInicialNaoEDiaUtilException;
@@ -68,8 +66,8 @@ public class InserirProjetoUseCase {
                 .descricao(inputData.getDescricao())
                 .dataHoraInicial(LocalDateTime.ofInstant(inputData.getDataHoraInicial().toInstant(), ZoneId.systemDefault()))
                 .dataHoraFinal(LocalDateTime.ofInstant(inputData.getDataHoraFinal().toInstant(), ZoneId.systemDefault()))
-                .situacao(EnumSituacao.valueOf(inputData.getSituacao()))
-                .categoria(EnumCategoria.valueOf(inputData.getCategoria()))
+                .situacao(Projeto.EnumSituacao.valueOf(inputData.getSituacao()))
+                .categoria(Projeto.EnumCategoria.valueOf(inputData.getCategoria()))
                 .build();
     }
 }

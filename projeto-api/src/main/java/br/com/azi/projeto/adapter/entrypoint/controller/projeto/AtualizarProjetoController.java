@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.transaction.Transactional;
+
 @AllArgsConstructor
 @RestController
 @RequestMapping("/projetos/{id}")
@@ -18,6 +20,7 @@ public class AtualizarProjetoController {
 
     private AtualizarProjetoUseCase atualizarProjetoUseCase;
 
+    @Transactional
     @PutMapping
     public ResponseEntity<Object> atualizar(@RequestBody AtualizarProjetoInputData inputData) {
         AtualizarProjetoOutputData outputData = atualizarProjetoUseCase.executar(inputData);

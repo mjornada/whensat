@@ -16,6 +16,7 @@
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
         <hal-spring-boot-starter-liquibase.version>4.1.0</hal-spring-boot-starter-liquibase.version>
         <hal-config-migration.version>4.1.0</hal-config-migration.version>
+        <hal-spring-boot-starter-filemanager.version>4.1.0</hal-spring-boot-starter-filemanager.version>
         <keycloak.version>15.0.2</keycloak.version>
     </properties>
     <dependencyManagement>
@@ -41,11 +42,16 @@
             <version>${hal-config-migration.version}</version>
         </dependency>
         <dependency>
+            <groupId>br.com.azi</groupId>
+            <artifactId>hal-spring-boot-starter-filemanager</artifactId>
+            <version>${hal-spring-boot-starter-filemanager.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-spring-boot-starter</artifactId>
             <version>${keycloak.version}</version>
         </dependency>
-		<dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>

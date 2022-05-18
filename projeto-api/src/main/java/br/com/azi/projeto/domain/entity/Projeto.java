@@ -1,7 +1,5 @@
 package br.com.azi.projeto.domain.entity;
 
-import br.com.azi.projeto.domain.constant.projeto.EnumCategoria;
-import br.com.azi.projeto.domain.constant.projeto.EnumSituacao;
 import br.com.azi.projeto.domain.dto.FiltroBaseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -66,6 +64,18 @@ public class Projeto {
 
     @Column(name = "PR_URI_LOGO", length = 500)
     private String uriLogo;
+
+    public enum EnumCategoria {
+        DESENVOLVIMENTO,
+        TREINAMENTO,
+        MANUTENCAO,
+        EVOLUCAO
+    }
+
+    public enum EnumSituacao {
+        ABERTO,
+        ENCERRADO
+    }
 
     @Builder
     @Data

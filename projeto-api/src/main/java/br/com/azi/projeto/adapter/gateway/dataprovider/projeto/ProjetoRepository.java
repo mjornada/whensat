@@ -1,4 +1,4 @@
-package br.com.azi.projeto.adapter.gateway.dataprovider.repository;
+package br.com.azi.projeto.adapter.gateway.dataprovider.projeto;
 
 import br.com.azi.projeto.domain.entity.Projeto;
 import org.springframework.data.jpa.repository.JpaRepository;

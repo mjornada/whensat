@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.transaction.Transactional;
+
 @AllArgsConstructor
 @RestController
 @RequestMapping("/projetos")
@@ -17,6 +20,7 @@ public class InserirProjetoController {
 
     private InserirProjetoUseCase inserirProjetoUseCase;
 
+    @Transactional
     @PostMapping
     public ResponseEntity<Object> inserir(@RequestBody InserirProjetoInputData inputData) {
         InserirProjetoOutputData outputData = inserirProjetoUseCase.executar(inputData);
