@@ -5,3 +5,6 @@ changesetList:
   - name: 002-carga-feriados
     operation: update
     filePath: /migration/configuration/changesets/002-carga-feriados.json
+  - name: 003-carga-integration
+    operation: update
+    filePath: /migration/configuration/changesets/003-carga-integration.json

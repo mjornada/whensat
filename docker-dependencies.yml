@@ -32,7 +32,7 @@ services:
     env_file:
       - variables.env
   hal-gateway:
-    image: gateway2:1.8.2-TREINAMENTO.2
+    image: registry.nexus.azi.srv.br/hal/cloud/hal-gateway2:1.9.0-TREINAMENTO
     ports:
       - 80:80
       - 443:443
@@ -73,7 +73,7 @@ services:
     env_file:
       - variables.env
   hal-keycloak:
-    image: registry.nexus.azi.srv.br/hal/cloud/hal-keycloak-spi:1.9.3-ALPHA.8
+    image: registry.nexus.azi.srv.br/hal/cloud/hal-keycloak-spi:1.10.0-TREINAMENTO.1
     ports:
       - 8080:8080
     environment:

@@ -29,8 +29,7 @@ keycloak:
   bearer-only: false
   public-client: false
   credentials:
-    secret: 300d0260-541b-4493-a4ab-bff926e5e4b3
-#TODO adicionar no az-realm.json o secret correto
+    secret: PROJETO_API_SECRET
   securityConstraints:
     - authRoles:
         - '*'

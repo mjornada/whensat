@@ -1,4 +1,4 @@
-package br.com.azi.projeto.application.factory.projeto;
+package br.com.azi.projeto.application.factory.usecase.projeto;
 
 import br.com.azi.projeto.application.config.ProjetoProperties;
 import br.com.azi.projeto.domain.interfaces.dataprovider.ProjetoDataProvider;

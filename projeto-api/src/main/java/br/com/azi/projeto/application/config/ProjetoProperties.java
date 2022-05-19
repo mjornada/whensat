@@ -13,12 +13,13 @@ public class ProjetoProperties {
 
     @Data
     public class Integration {
-        String sistemaDeControleDeTarefas;
-        Redmine redmine = new Redmine();
+        String sistemaDeControleDeProjetos;
+        Jira jira = new Jira();
 
         @Data
-        public class Redmine {
+        public class Jira {
             String uri;
+            String token;
         }
     }
 }

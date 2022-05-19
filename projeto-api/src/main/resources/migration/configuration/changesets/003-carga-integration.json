@@ -1,0 +1,12 @@
+[
+  {
+    "key": "az.projeto.integration",
+    "value": {
+      "sistema-de-controle-de-projetos": "jira",
+      "jira" : {
+        "uri": "${JIRA_URL}",
+        "token": "${JIRA_TOKEN}"
+      }
+    }
+  }
+]
