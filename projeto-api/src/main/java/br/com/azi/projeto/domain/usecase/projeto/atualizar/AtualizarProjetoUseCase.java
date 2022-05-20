@@ -52,8 +52,8 @@ public class AtualizarProjetoUseCase {
         projeto.setDescricao(input.getDescricao());
         projeto.setDataHoraInicial(LocalDateTime.ofInstant(input.getDataHoraInicial().toInstant(), ZoneId.systemDefault()));
         projeto.setDataHoraFinal(LocalDateTime.ofInstant(input.getDataHoraFinal().toInstant(), ZoneId.systemDefault()));
-        projeto.setSituacao(Projeto.EnumSituacao.valueOf(input.getSituacao()));
-        projeto.setCategoria(Projeto.EnumCategoria.valueOf(input.getCategoria()));
+        projeto.setSituacao(Projeto.Situacao.valueOf(input.getSituacao()));
+        projeto.setCategoria(Projeto.Categoria.valueOf(input.getCategoria()));
     }
 
     private Projeto salvar(Projeto projeto) {

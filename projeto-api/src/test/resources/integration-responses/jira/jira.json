@@ -1,0 +1,19 @@
+{
+  "maxResults": 50,
+  "startAt": 0,
+  "total": 57,
+  "values": [
+    {
+      "id": "10040",
+      "key": "ALMOX",
+      "name": "Almoxarifado",
+      "projectTypeKey": "software"
+    },
+    {
+      "id": "10065",
+      "key": "ALMS",
+      "name": "ALMS",
+      "projectTypeKey": "service_desk"
+    }
+  ]
+}

@@ -56,23 +56,23 @@ public class Projeto {
 
     @Column(name = "PR_SITUACAO", length = 20)
     @Enumerated(EnumType.STRING)
-    private EnumSituacao situacao;
+    private Situacao situacao;
 
     @Column(name = "PR_CATEGORIA", length = 20)
     @Enumerated(EnumType.STRING)
-    private EnumCategoria categoria;
+    private Categoria categoria;
 
     @Column(name = "PR_URI_LOGO", length = 500)
     private String uriLogo;
 
-    public enum EnumCategoria {
+    public enum Categoria {
         DESENVOLVIMENTO,
         TREINAMENTO,
         MANUTENCAO,
         EVOLUCAO
     }
 
-    public enum EnumSituacao {
+    public enum Situacao {
         ABERTO,
         ENCERRADO
     }

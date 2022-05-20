@@ -6,10 +6,12 @@ import br.com.azi.projeto.domain.commons.date.DateUtils;
 import br.com.azi.projeto.domain.entity.Projeto;
 import br.com.azi.projeto.domain.usecase.projeto.buscarporid.BuscarProjetoPorIdOutputData;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
 @Builder
+@NoArgsConstructor
 public class BuscarProjetoPorIdOutputDataConverter extends GenericConverter<Projeto, BuscarProjetoPorIdOutputData> {
 
     @Override

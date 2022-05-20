@@ -66,8 +66,8 @@ public class InserirProjetoUseCase {
                 .descricao(inputData.getDescricao())
                 .dataHoraInicial(LocalDateTime.ofInstant(inputData.getDataHoraInicial().toInstant(), ZoneId.systemDefault()))
                 .dataHoraFinal(LocalDateTime.ofInstant(inputData.getDataHoraFinal().toInstant(), ZoneId.systemDefault()))
-                .situacao(Projeto.EnumSituacao.valueOf(inputData.getSituacao()))
-                .categoria(Projeto.EnumCategoria.valueOf(inputData.getCategoria()))
+                .situacao(Projeto.Situacao.valueOf(inputData.getSituacao()))
+                .categoria(Projeto.Categoria.valueOf(inputData.getCategoria()))
                 .build();
     }
 }

@@ -20,11 +20,9 @@ import java.io.IOException;
 @AllArgsConstructor
 public class BuscarProjetosJiraUseCase {
 
-    private static final String DOMAIN = "https://aztecnologia.atlassian.net";
     private static final String PATH_TO_BUSCA = "/rest/api/3/project/search";
 
     public static final String BASIC_TYPE = "Basic";
-    public static final String LOGIN_BASE_64 = "bGludXguYmluZEBhemkuY29tLmJyOnVnZHQzMmlKNEx0SWdWUXdwTjZMN0EyOA";
 
     private JsonUtils jsonUtils;
     private UrlBuilder urlBuilder;
