@@ -9,6 +9,7 @@ CREATE TABLE projeto.tb_projeto (
     pr_dthr_final timestamp(6),
     pr_situacao varchar(20),
     pr_categoria varchar(20),
+    pr_uri_logo varchar (20),
     pr_dthr_cadastro timestamp(6),
     pr_dthr_alteracao timestamp(6),
     pr_usuario_cadastro varchar(255),
