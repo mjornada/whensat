@@ -44,14 +44,14 @@ public class Validator<T> {
         return validate(projection.andThen(validation::test)::apply, message);
     }
 
-    public <U> Validator<T> validate(Boolean assertion, Exception exception) {
+    public Validator<T> validate(Boolean assertion, Exception exception) {
         if(!assertion){
             exceptions.add(exception);
         }
         return this;
     }
 
-    public T get() throws IllegalStateException {
+    public T get() {
         if (ok()) {
             return t;
         }

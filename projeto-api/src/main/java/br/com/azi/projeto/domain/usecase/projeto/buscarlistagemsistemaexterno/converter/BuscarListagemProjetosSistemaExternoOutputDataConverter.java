@@ -8,8 +8,4 @@ import lombok.Builder;
 @Builder
 public class BuscarListagemProjetosSistemaExternoOutputDataConverter extends GenericConverter<ProjetoDTO, BuscarListagemProjetosSistemaExternoOutputData.Item> {
 
-    @Override
-    public BuscarListagemProjetosSistemaExternoOutputData.Item to(ProjetoDTO source) {
-        return super.to(source);
-    }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 @Data
 public class GenericValidationException extends RuntimeException {
-    List<String> args;
+    private List<String> args;
 
     public GenericValidationException(String message) {
         super(message);

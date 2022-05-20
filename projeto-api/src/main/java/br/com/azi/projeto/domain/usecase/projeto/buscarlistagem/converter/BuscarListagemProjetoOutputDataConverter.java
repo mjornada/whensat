@@ -7,10 +7,6 @@ import lombok.Builder;
 
 @Builder
 public class BuscarListagemProjetoOutputDataConverter extends GenericConverter<Projeto, BuscarListagemProjetoOutputData.Item> {
-    @Override
-    public BuscarListagemProjetoOutputData.Item to(Projeto projeto) {
-        return super.to(projeto);
-    }
 
     @Override
     public Projeto from(BuscarListagemProjetoOutputData.Item source) {

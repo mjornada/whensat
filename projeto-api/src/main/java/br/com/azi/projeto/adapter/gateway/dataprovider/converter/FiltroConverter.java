@@ -8,6 +8,11 @@ import org.springframework.data.domain.Sort;
 import java.util.Objects;
 
 public class FiltroConverter {
+
+    private FiltroConverter() {
+        throw new IllegalStateException("Classe Utilitária");
+    }
+
     public static Pageable extrairPaginacao(FiltroBaseDTO filtro) {
         return PageRequest.of(filtro.getPage().intValue(),
                 filtro.getRowsPerPage().intValue(),
