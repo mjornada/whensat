@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 public class BadRequestExceptionList extends RuntimeException {
-    private List<GenericValidationException> exceptions;
+    private final List<GenericValidationException> exceptions;
 
     public BadRequestExceptionList(String message, List<GenericValidationException> exceptions) {
         super(message);

@@ -7,6 +7,10 @@ import java.util.Date;
 
 public class DateUtils {
 
+    private DateUtils() {
+        throw new IllegalStateException("Classe Utilitária");
+    }
+
     public static String formatarData(LocalDateTime date) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         return formatter.format(localDateTimeToDate(date));
