@@ -8,10 +8,26 @@ Em termos de implementação, o projeto é dividido em 2 grandes módulos/entreg
 src
 └── br.com.azi.projeto
     └── adapter
-        └── entrypoint        
+        └── entrypoint
+            └── controller
+                └── exceptionhandler
+            └── job
+            └── queue        (Listener das filas)       
+            ...                    
         └── gateway
-    └── application                   
-    └── domain                         
+            └── dataprovider (comunicação com o banco de dados)
+            └── integration  (comunicação com serviços de api)
+            └── queue        (Disparo para as filas)     
+    └── application
+        └── config
+        └── factory                   
+    └── domain
+        └── commons
+        └── dto    
+        └── entity
+        └── exception
+        └── interfaces
+        └── usecase                      
 ```
 
 #### Entrypoint
@@ -22,7 +38,7 @@ Responsabilidades:
 
 * Implementar os controllers.
 * Implementar o tratamento global de exceções da aplicação.
-* Implementar Jobs caso a aplicação os utilize.
+* Implementar Jobs e listeners de fila.
 
 
 #### Gateway
@@ -34,6 +50,7 @@ Responsabilidades:
 * Implementar os DataProviders utilizando as interfaces da camada de domínio.
 * Implementar a comunicação com o banco de dados.
 * Implementar a comunicação com outros sistemas.
+* Implementar os disparos para as fila.
 
 
 #### Application
@@ -56,32 +73,4 @@ Responsabilidades:
 * Implementar os casos de uso.
 * Implementar as entidades.
 * Implementar o mapeamento objeto-relacional.
-* Implementar **apenas as interfaces** dos DataProviders.
-
-
-### Sugestão de organização  dos pacotes
-```bash
-src
-└── br.com.azi.projeto
-    └── adapter
-        └── entrypoint
-            └── controller
-            └── exceptionhandler
-            └── job
-            ...            
-        └── gateway
-            └── dataprovider
-            └── integration
-    └── application
-        └── config
-        └── factory                   
-    └── domain
-        └── commons
-        └── dto    
-        └── entity
-        └── exception
-        └── interfaces
-        └── usecase
-        
-                        
-```
+* Criar **apenas as interfaces** dos DataProviders.
