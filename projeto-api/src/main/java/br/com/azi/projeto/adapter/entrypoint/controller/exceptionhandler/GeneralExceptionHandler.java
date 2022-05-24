@@ -1,4 +1,4 @@
-package br.com.azi.projeto.adapter.entrypoint.exceptionhandler;
+package br.com.azi.projeto.adapter.entrypoint.controller.exceptionhandler;
 
 import br.com.azi.projeto.domain.validation.BadRequestExceptionList;
 import br.com.azi.projeto.domain.validation.GenericNaoEncontradoException;

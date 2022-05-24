@@ -15,11 +15,9 @@
 * [6. Configurações no Setup](#6-configurações-no-setup "Como configurar o Setup")
     * [6.1. Parâmetros de Configuração](#61-parâmetros-de-configuração "Parâmetros de configurações do Projeto")
 
-
 ## 1. Objetivo
 
-Este documento tem como objetivo repassar o conhecimento técnico obtido no processo de desenvolvimento do produto Projeto, 
-constam aqui as configurações e informações necessárias para que seja feita a implantação do sistema de maneira correta.
+Este documento tem como objetivo repassar o conhecimento técnico obtido no processo de desenvolvimento do produto Projeto, constam aqui as configurações e informações necessárias para que seja feita a implantação do sistema de maneira correta.
 
 ## 2. Pré-requisitos
 
@@ -109,11 +107,8 @@ As variáveis de ambiente, estão listadas abaixo na tabela:
 | HAL_DISCOVERY_URL | http://hal-discovery:8001 | Endereço do hal-discovery.          |
 | HAL_GATEWAY_DEFAULT_ROUTE | /flowbee | Redirecionamento do path raiz ("/"). |
 ||||
-||||
 | JIRA_URL | https://aztecnologia.atlassian.net | Url base para acessar a api do Jira |
 | JIRA_TOKEN | bGludXguYmluZEBhemkuY29tLmJyOnVnZHQzMmlKNEx0SWdWUXdwTjZMN0EyOA== | Token para acessar a api do Jira.   |
-||||
-
 
 ## 5. Docker Project
 
@@ -140,8 +135,8 @@ Os parâmetros e valores que podem apresentar, estão listados abaixo na tabela:
 
 | Chave                                                  | Valor Padrão                 | Valores Possíveis    | Descrição                            |
 |--------------------------------------------------------|------------------------------|----------------------|--------------------------------------|
-| az.projeto.integration.jira.uri                        | ${JIRA_URL}                  | Texto livre | Url base para acessar a api do Jira  |
-| az.projeto.integration.jira.token                      | ${JIRA_TOKEN}                | Texto livre | Token para acessar a api do Jira.    |
+| az.projeto.integration.jira.uri                        | https://aztecnologia.atlassian.net                  | Texto livre | Url base para acessar a api do Jira  |
+| az.projeto.integration.jira.token                      | bGludXguYmluZEBhemkuY29tLmJyOnVnZHQzMmlKNEx0SWdWUXdwTjZMN0EyOA==                | Texto livre | Token para acessar a api do Jira.    |
 | az.projeto.integration.sistema-de-controle-de-projetos | jira                         | Texto livre | Sistema de gerenciamento de projetos |
 | az.projeto.feriados.1                                  | 01/01                        | outro feriado | Feriado                              |
 | az.projeto.feriados.2                                  | 21/04                        | outro feriado | Feriado                              |
