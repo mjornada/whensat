@@ -4,8 +4,8 @@
     "value": {
       "sistema-de-controle-de-projetos": "jira",
       "jira" : {
-        "uri": "${JIRA_URL}",
-        "token": "${JIRA_TOKEN}"
+        "uri": "https://aztecnologia.atlassian.net",
+        "token": "bGludXguYmluZEBhemkuY29tLmJyOnVnZHQzMmlKNEx0SWdWUXdwTjZMN0EyOA=="
       }
     }
   }
