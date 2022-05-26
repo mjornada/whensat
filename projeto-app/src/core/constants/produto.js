@@ -1,9 +1,9 @@
 import packageJson from '../../../package'
 
 export default {
-    VERSAO: packageJson.version,
-    NOME: 'projeto',
-    PARAMETRO_NAMESPACE: 'az.compra-direta',
-    COPYRIGHT: 'Todos os direitos reservados',
-    LOGOUT_URL: '/hal/logout'
+	COPYRIGHT: 'Todos os direitos reservados',
+	LINK_ARQUIVO: '/api',
+	NOME: 'projeto',
+	PARAMETRO_NAMESPACE: 'az.projeto',
+	VERSAO: packageJson.version,
 }

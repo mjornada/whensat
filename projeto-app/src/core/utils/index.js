@@ -1,13 +1,7 @@
-import Alert from './Alert'
-import FileManagerUtils from './FileManagerUtils'
-import HttpStatus from './HttpStatus'
-import LoadingScreen from './LoadingScreen'
-import PageUtils from './PageUtils'
+import Alert from '@/core/utils/Alert'
+import FileManagerUtils from '@/core/utils/FileManagerUtils'
+import HttpStatus from '@/core/utils/HttpStatus'
+import LoadingScreen from '@/core/utils/LoadingScreen'
+import PageUtils from '@/core/utils/PageUtils'
 
-export {
-    Alert,
-    FileManagerUtils,
-    HttpStatus,
-    LoadingScreen,
-    PageUtils
-}
+export { Alert, FileManagerUtils, HttpStatus, LoadingScreen, PageUtils }

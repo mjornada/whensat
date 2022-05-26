@@ -1,38 +1,18 @@
 import axios from 'axios'
-import ParamUtils from '../utils/ParamUtils'
+import ParamUtils from '@/core/utils/ParamUtils'
 
 class ProjetoApiClient {
+	async buscarTodos(filtros, paginacao) {
+		return await axios.get(`/projeto/api/projetos?${ParamUtils.ObjectsToParams([paginacao, filtros])}`)
+	}
 
-    async buscarPorId(projetoId) {
-        return axios.get(`/projeto/api/v1/projetos/${projetoId}`)
-    }
+	async buscarPorId(id) {
+		return await axios.get(`/projeto/api/projetos/${id}`)
+	}
 
-    async buscarNomesDosProjetos(projeto) {
-        return axios.get(`/projeto/api/v1/projetos/por-nome?conteudo=${projeto}`)
-    }
-
-    async buscarResumo(projetoId) {
-        return new Promise((resolve) => {
-            resolve({
-                data: {
-                    id: 23,
-                    situacao: 'ABERTO'
-                }
-            })
-        })
-    }
-
-    async buscarTodos(filtros, paginacao) {
-        return axios.get(`/projeto/api/v1/projetos?${ParamUtils.ObjectsToParams([paginacao, filtros])}`)
-    }
-
-    async inserir(dados) {
-        return axios.post(`/projeto/api/v1/projetos`, dados)
-    }
-
-    async salvar(dados) {
-        return axios.put(`/projeto/api/v1/projetos/${dados.id}`, dados)
-    }
+	async inserir(dados) {
+		return await axios.post('/projeto/api/projetos', dados)
+	}
 }
 
 export default new ProjetoApiClient()

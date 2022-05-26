@@ -1,11 +1,9 @@
-import produto from './ProdutoApiClient'
-import projeto from './ProjetoApiClient'
-import tarefa from './TarefaApiClient'
-import usuario from './UsuarioApiClient'
+import produto from '@/core/apiclient/ProdutoApiClient'
+import usuario from '@/core/apiclient/UsuarioApiClient'
+import projeto from '@/core/apiclient/ProjetoApiClient'
 
 export default {
-    produto,
-    projeto,
-    tarefa,
-    usuario
+	produto,
+	usuario,
+	projeto,
 }

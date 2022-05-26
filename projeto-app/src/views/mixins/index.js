@@ -1,17 +1,9 @@
-import alert from './alert'
-import constant from './constant'
-import date from './date'
-import file from './file'
-import loading from './loading'
-import telefone from './telefone'
+import alert from '@/views/mixins/alert'
+import loading from '@/views/mixins/loading'
 
 export default {
-    install(Vue) {
-        Vue.mixin(alert)
-        Vue.mixin(constant)
-        Vue.mixin(date)
-        Vue.mixin(file)
-        Vue.mixin(loading)
-        Vue.mixin(telefone)
-    }
+	install(Vue) {
+		Vue.mixin(alert)
+		Vue.mixin(loading)
+	},
 }

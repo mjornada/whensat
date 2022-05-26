@@ -1,74 +1,73 @@
 <template>
-    <az-template-default showMainHeader showNotification>
-        <template slot="main-header">
-            <salvamento-automatico class="pr-mensagem-salvamento"/>
-        </template>
-        <router-view/>
-    </az-template-default>
+	<div class="projeto">
+		<az-template-default id="az-template-default">
+			<router-view></router-view>
+		</az-template-default>
+	</div>
 </template>
 
 <script>
-    import {mapState} from 'vuex'
-
-    export default {
-        computed: {
-            ...mapState(['loki'])
-        }
-    }
+export default {
+	name: 'root-page',
+}
 </script>
 
 <style lang="stylus">
-    html, body, .application
-        font-family 'Open Sans', sans-serif
+.projeto
 
-    .notification i.white--text
-        color rgb(119, 119, 119) !important
+	.pr-text-color
+		color var(--v-secondary-base)
 
-    table.v-table thead tr
-        height auto !important
+	.pr-titulo
+		color #777
+		padding 12px
 
-    .az-table-list tbody tr
-        border-bottom 1px solid #e9e9e9
+	.az-template-default
 
-        td
-            font-weight 400
-            height 40px
-            color #777
-            font-size 13px
+		.az-logo
+			display flex
+			justify-content center
+			align-items center
+			padding-top 16px
 
-    .az-menu .v-list__tile__action i
-        font-size 15px
+			a
+				max-width 150px
 
-    .az-container .az-table-list thead tr:first-child th
-        white-space normal
+		.active-menu
+			font-weight: 700 !important
 
-    .az-logo img
-        width 140px
+		.az-menu
 
-    .v-navigation-drawer--mini-variant .az-logo img
-        width auto
+			.v-list-item__title
+				font-weight 700
+				color rgba(255, 255, 255, 0.8) !important
 
-    .table-actions
-        text-align center !important
+		.container
+			padding 1px
 
-        a
-            color #777
+		.mobile_menu
+			display none
 
-        i
-            font-size 16px
+		.toolbar
+			-webkit-box-shadow 0 2px 4px -1px rgba(0, 0, 0, 0.2) !important
+			box-shadow 0 2px 4px -1px rgba(0, 0, 0, 0.2) !important
+			background-color #fff !important
 
-    .pr-mensagem-salvamento
-        color var(--v-primary-base)
-        margin-right 1rem
+	&__erro-inicializacao
+		width 100%
+		padding 0
+		text-align center
+		color #555
+		height 90vh
+		display flex
+		justify-content center
+		align-items center
 
-    .pr-area
-        padding 20px 10px
-        text-align center
+		i
+			font-size 36px
 
-    .pr-acoes-formulario
-        padding 0
-
-    .pr-titulo
-        color #777
-        margin-bottom 10px
+		p
+			font-size 20px
+			margin 10px 0 0
+			font-weight 600
 </style>

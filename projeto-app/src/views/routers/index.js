@@ -1,22 +1,12 @@
-import Router from 'vue-router'
-import guards from './guards'
-import interno from './routes/interno'
-import comum from './routes/comum'
+import VueRouter from 'vue-router'
+import guards from '@/views/routers/guards'
+import comum from '@/views/routers/routes/comum'
+import projeto from '@/views/routers/routes/projeto'
 
-const index = new Router({
-    routes: [
-        {
-            path: '/',
-            name: 'Inicial',
-            redirect: () => {
-                return {name: 'TodosProjetos'}
-            }
-        },
-        ...comum,
-        ...interno
-    ]
+const router = new VueRouter({
+	routes: [...comum, ...projeto],
 })
 
-index.beforeEach((to, from, next) => guards.conditions(to, from, next))
+router.beforeEach((to, from, next) => guards.condicoes(to, from, next))
 
-export default index
+export default router

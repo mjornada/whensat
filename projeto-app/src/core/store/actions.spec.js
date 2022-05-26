@@ -1,150 +1,54 @@
+import api from '@/core/apiclient'
+import { actionTypes, mutationTypes } from '@/core/constants'
 import actions from './actions'
-import {actionTypes, mutationTypes} from '@/core/constants'
-import axios from 'axios'
 
-let url, body, mockResponseData, returnedResponse
-
-jest.mock('axios', () => ({
-    post(_url, _body) {
-        return new Promise((resolve) => {
-            url = _url
-            body = _body
-            resolve({data: mockResponseData})
-        })
-    },
-    put(_url, _body) {
-        return new Promise((resolve) => {
-            url = _url
-            body = _body
-            resolve({data: mockResponseData})
-        })
-    },
-    get(_url) {
-        return new Promise((resolve) => {
-            url = _url
-            resolve({data: mockResponseData})
-        })
-    },
-    delete(_url) {
-        return new Promise((resolve) => {
-            url = _url
-            resolve()
-        })
-    }
-}))
+let state, context, retornoApiMock
 
 describe('Actions', () => {
-    const commit = jest.fn()
-    const dispatch = jest.fn()
-    const projetoId = 40
-    let state
+	beforeEach(() => {
+		state = {
+			loki: {
+				product: {
+					id: 10,
+					name: 'produto',
+				},
+			},
+			repositorioConteudo: {},
+		}
+		context = {
+			commit: jest.fn(),
+			dispatch: jest.fn(),
+			state,
+		}
+		retornoApiMock = {
+			data: 'teste',
+		}
+		jest.clearAllMocks()
+	})
 
-    beforeEach(() => {
-        url = ''
-        body = undefined
-        mockResponseData = true
-        state = {
-            loki: {
-                product: {
-                    id: 1,
-                    name: 'compra-direta'
-                }
-            }
-        }
-    })
+	it('Deve chamar a action COMUM.BUSCAR_PRODUTO_POR_NOME', async () => {
+		api.produto.buscarPorNome = jest.fn().mockReturnValue(retornoApiMock)
+		await actions[actionTypes.COMUM.BUSCAR_PRODUTO_POR_NOME](context, 'produto')
 
-    it('COMUM.BUSCAR_PRODUTO_POR_NOME', async () => {
-        const packageJson = {name: 'compra-direta'}
-        returnedResponse = await actions[actionTypes.COMUM.BUSCAR_PRODUTO_POR_NOME]({commit}, packageJson)
-        expect(url).toBe(`/hal/public/produtos?produtoNome=projeto`)
-        expect(commit).toHaveBeenCalledWith(mutationTypes.COMUM.SET_PRODUTO, true)
-    })
+		expect(context.commit).toHaveBeenCalledWith(mutationTypes.COMUM.SET_PRODUTO, 'teste')
+	})
 
-    it('COMUM.BUSCAR_USUARIO_LOGADO', async () => {
-        returnedResponse = await actions[actionTypes.COMUM.BUSCAR_USUARIO_LOGADO]({commit, state})
-        expect(url).toBe(`/hal/usuario/sessao?produtoId=${state.loki.product.id}`)
-        expect(commit).toHaveBeenCalledWith(mutationTypes.COMUM.SET_USUARIO_LOGADO, true)
-    })
+	it('Deve chamar a action COMUM.BUSCAR_USUARIO_LOGADO', async () => {
+		api.usuario.buscarLogado = jest.fn((id) => ({
+			data: `usuario do produto ${id}`,
+		}))
+		await actions[actionTypes.COMUM.BUSCAR_USUARIO_LOGADO](context)
 
-    it('COMUM.BUSCAR_LINK_EDITAR_USUARIO', async () => {
-        const payload = {'produto': 'compra-direta', 'uri': 'http://localhost/'}
+		expect(context.commit).toHaveBeenCalledWith(mutationTypes.COMUM.SET_USUARIO_LOGADO, 'usuario do produto 10')
+	})
 
-        returnedResponse = await actions[actionTypes.COMUM.BUSCAR_LINK_EDITAR_USUARIO]({state})
-        expect(url).toBe(`/hal/editarUsuario`)
-        expect(body).toEqual(payload)
-        expect(returnedResponse).toBeTruthy()
-    })
+	it('Deve chamar a action COMUM.BUSCAR_LINK_EDITAR_USUARIO', async () => {
+		api.usuario.editar = jest.fn((payload) => ({ data: payload }))
+		const responseData = await actions[actionTypes.COMUM.BUSCAR_LINK_EDITAR_USUARIO](context)
 
-    it('PROJETO.BUSCAR_DADOS_GERAIS', async () => {
-        await actions[actionTypes.PROJETO.BUSCAR_DADOS_GERAIS]({commit}, projetoId)
-        expect(url).toBe(`/projeto/api/v1/projetos/${projetoId}`)
-        expect(commit).toHaveBeenCalledWith(mutationTypes.PROJETO.SET_DADOS_GERAIS, true)
-    })
-
-    it('PROJETO.BUSCAR_NOMES_DOS_PROJETOS', async () => {
-        const projeto = 'Treinamento'
-        await actions[actionTypes.PROJETO.BUSCAR_NOMES_DOS_PROJETOS]({commit}, projeto)
-        expect(url).toEqual(`/projeto/api/v1/projetos/por-nome?conteudo=${projeto}`)
-        expect(commit).toHaveBeenCalledWith(mutationTypes.PROJETO.SET_AUTOCOMPLETE_NOMES_DOS_PROJETOS, undefined)
-    })
-
-    it('PROJETO.BUSCAR_RESUMO_DO_PROJETO', async () => {
-        await actions[actionTypes.PROJETO.BUSCAR_RESUMO_DO_PROJETO]({commit}, projetoId)
-        expect(url).toEqual(`/projeto/api/v1/projetos/${projetoId}`)
-        expect(commit).toHaveBeenCalledWith(mutationTypes.PROJETO.SET_RESUMO_DO_PROJETO, true)
-    })
-
-    it('PROJETO.BUSCAR_TAREFAS', async () => {
-        await actions[actionTypes.PROJETO.BUSCAR_TAREFAS]({commit}, projetoId)
-        expect(url).toEqual(`/projeto/api/v1/projetos/${projetoId}/tarefas`)
-        expect(commit).toHaveBeenCalledWith(mutationTypes.PROJETO.SET_TAREFAS, undefined)
-    })
-
-    it('PROJETO.BUSCAR_TODOS_PROJETOS', async () => {
-        state = {
-            projeto: {
-                resultadoBuscaTodosProjetos: {
-                    filtros: {
-                        objeto: {
-                            value: 'regulamento'
-                        },
-                        situacoes: ['EM_ELABORACAO', 'ABERTA', 'EM_ANALISE', 'ENCERRADA']
-                    },
-                    paginacao: {
-                        page: 1,
-                        rowsPerPage: 10
-                    }
-                }
-            }
-        }
-
-        returnedResponse = await actions[actionTypes.PROJETO.BUSCAR_TODOS_PROJETOS]({state})
-        expect(url).toBe(`/projeto/api/v1/projetos?page=1&rowsPerPage=10&situacoes=EM_ELABORACAO&situacoes=ABERTA&situacoes=EM_ANALISE&situacoes=ENCERRADA`)
-        expect(returnedResponse).toBeTruthy()
-    })
-
-    it('PROJETO.REMOVER_TAREFA', async () => {
-        const tarefaId = 45
-        await actions[actionTypes.PROJETO.REMOVER_TAREFA]({commit}, tarefaId)
-        expect(url).toEqual(`/projeto/api/v1/tarefas/${tarefaId}`)
-        expect(commit).toHaveBeenCalledWith(mutationTypes.PROJETO.SET_REMOVER_TAREFA, tarefaId)
-    })
-
-    it('PROJETO.SALVAR_DADOS_GERAIS', async () => {
-        const dados = {
-            id: 19
-        }
-        await actions[actionTypes.PROJETO.SALVAR_DADOS_GERAIS]({commit}, dados)
-        expect(url).toEqual(`/projeto/api/v1/projetos/${dados.id}`)
-        expect(commit).toHaveBeenCalledWith(mutationTypes.PROJETO.SET_DADOS_GERAIS, true)
-    })
-
-    it('PROJETO.SALVAR_TAREFA', async () => {
-        const tarefa = {
-            id: 54
-        }
-        await actions[actionTypes.PROJETO.SALVAR_TAREFA](tarefa)
-        expect(url).toEqual(`/projeto/api/v1/tarefas`)
-        expect(returnedResponse).toBeTruthy()
-    })
+		expect(responseData).toEqual({
+			produto: 'produto',
+			uri: 'http://localhost/',
+		})
+	})
 })

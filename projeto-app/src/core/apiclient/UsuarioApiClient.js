@@ -1,14 +1,13 @@
 import axios from 'axios'
 
 class UsuarioApiClient {
+	async buscarLogado(produtoId) {
+		return await axios.get(`/hal/usuario/sessao?produtoId=${produtoId}`)
+	}
 
-    async buscarLogado(produtoId) {
-        return await axios.get(`/hal/usuario/sessao?produtoId=${produtoId}`)
-    }
-
-    async editar(payload) {
-        return await axios.post(`/hal/editarUsuario`, payload)
-    }
+	async editar(payload) {
+		return await axios.post('/hal/editarUsuario', payload)
+	}
 }
 
 export default new UsuarioApiClient()

@@ -5,6 +5,10 @@
 target
 *.iml
 
+## front-end
+node_modules
+.tmp
+
 ## arquivos padrão do hal-cli
 .docker-database.yml
 .oracle/

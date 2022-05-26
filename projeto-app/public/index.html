@@ -1,92 +1,110 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico" type="image/x-icon">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans&display=swap' rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <title>Projeto</title>
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="description" content="Projeto">
-    <meta property="og:description" content="Exemplo de como desenvolver um projeto.">
-    <meta name="keywords" content="transparência, agilidade">
-    <meta name="author" content="AZ Informática">
-    <style lang="less">
-        .az-loadingg-page {
-            width: 100%;
-            display: block;
-            align-items: center;
-            position: absolute;
-            left: 40%;
-            align-content: center;
-        }
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<link rel="icon" href="<%= BASE_URL %>favicon.svg" />
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+		<link
+			rel="stylesheet"
+			href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+			integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+			crossorigin="anonymous"
+		/>
+		<title>Projeto</title>
+		<meta name="msapplication-TileColor" content="#ffffff" />
+		<meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
+		<meta name="theme-color" content="#ffffff" />
+		<meta name="description" content="Projeto" />
+		<meta property="og:description" content="Exemplo de como desenvolver um projeto." />
+		<meta name="keywords" content="transparência, agilidade" />
+		<meta name="author" content="AZ Informática" />
+		<style lang="less">
+			body {
+				background-color: #eee;
+			}
 
-        .loading-title {
-            width: 20%;
-            height: 100%;
-            font-size: 20px;
-            text-align: center;
-            margin-top: 100px;
-            font-weight: bold;
-            color: #555;
-        }
+			.az-loading-page {
+				width: 100%;
+				align-content: center;
+				height: 80vh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
 
-        .loader {
-            height: 4px;
-            width: 20%;
-            position: relative;
-            overflow: hidden;
-            background-color: #ddd;
-        }
+			.loading-area {
+				width: 20%;
+			}
 
-        .loader:before {
-            display: block;
-            position: absolute;
-            content: "";
-            left: -200px;
-            width: 200px;
-            height: 4px;
-            background-color: #153c5c;
-            animation: loading 2s linear infinite;
-        }
+			.loading-title {
+				font-size: 20px;
+				text-align: center;
+				font-weight: bold;
+				color: #555;
+				margin-bottom: 10px;
+			}
 
-        @keyframes loading {
-            from {
-                left: -200px;
-                width: 30%;
-            }
-            50% {
-                width: 30%;
-            }
-            70% {
-                width: 70%;
-            }
-            80% {
-                left: 50%;
-            }
-            95% {
-                left: 120%;
-            }
-            to {
-                left: 100%;
-            }
-        }
-    </style>
-</head>
-<body>
-<noscript>
-    <strong>Desculpe, mas esta aplicação não funciona se o Javascript estiver desabilidado. Para continuar habilite o
-        Javascript.</strong>
-</noscript>
-<div id="app" class="az-loadingg-page">
-    <h1 class="loading-title">Carregando...</h1>
-    <div class="loader"></div>
-</div>
-</body>
+			.loader {
+				height: 4px;
+				position: relative;
+				overflow: hidden;
+				background-color: #ddd;
+			}
+
+			.loader:before {
+				display: block;
+				position: absolute;
+				content: '';
+				left: -200px;
+				width: 200px;
+				height: 4px;
+				background-color: #153c5c;
+				animation: loading 2s linear infinite;
+			}
+
+			@keyframes loading {
+				from {
+					left: -200px;
+					width: 30%;
+				}
+				50% {
+					width: 30%;
+				}
+				70% {
+					width: 70%;
+				}
+				80% {
+					left: 50%;
+				}
+				95% {
+					left: 120%;
+				}
+				to {
+					left: 100%;
+				}
+			}
+
+			@media (max-width: 500px) {
+				.loading-area {
+					width: 70%;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<noscript>
+			<strong>
+				Desculpe, mas esta aplicação não funciona se o Javascript estiver desabilidado. Para continuar habilite o Javascript.
+			</strong>
+		</noscript>
+		<div id="app" class="az-loading-page">
+			<div class="loading-area">
+				<h1 class="loading-title">Carregando...</h1>
+				<div class="loader"></div>
+			</div>
+		</div>
+	</body>
 </html>

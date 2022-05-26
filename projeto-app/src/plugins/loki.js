@@ -1,6 +1,6 @@
-import Vue from 'vue'
-import loki from '@azinformatica/loki'
 import store from '@/core/store'
 import router from '@/views/routers'
+import loki from '@azinformatica/loki'
+import Vue from 'vue'
 
-Vue.use(loki, {store, router})
+Vue.use(loki, { router, store })

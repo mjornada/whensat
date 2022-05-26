@@ -1,3 +1,3 @@
 export default {
-    FUSO_HORARIO_DEFAULT: 'America/Sao_Paulo'
+	FUSO_HORARIO_DEFAULT: 'America/Campo_Grande',
 }

@@ -1,4 +1,4 @@
 export default {
-    ABERTO: 'Aberto',
-    ENCERRADO: 'Encerrado'
+	ABERTO: 'Aberto',
+	ENCERRADO: 'Encerrado',
 }
