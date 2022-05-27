@@ -37,4 +37,9 @@ export default {
 		const { data } = await api.projeto.buscarPorId(projetoId)
 		commit(mutationTypes.PROJETO.SET_DADOS_PROJETO, data)
 	},
+
+	async [actionTypes.PROJETO.EDITAR]({ commit }, dados) {
+		const { data } = await api.projeto.editar(dados.id, dados)
+		commit(mutationTypes.PROJETO.SET_DADOS_PROJETO, data)
+	},
 }

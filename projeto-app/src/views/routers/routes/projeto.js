@@ -2,6 +2,7 @@ import { routesNames } from '@/core/constants'
 import ProjetoTodos from '@/views/pages/projeto/todos/ProjetoTodos'
 import ProjetoNovo from '@/views/pages/projeto/novo/ProjetoNovo'
 import ProjetoVisualizar from '@/views/pages/projeto/visualizar/ProjetoVisualizar'
+import ProjetoEditar from '@/views/pages/projeto/editar/ProjetoEditar'
 
 export default [
 	{
@@ -39,6 +40,18 @@ export default [
 		meta: {
 			page: {
 				title: 'Visualizar Projeto',
+			},
+			requiresAuth: true,
+			authorities: ['PerfilSistema.Projeto'],
+		},
+	},
+	{
+		name: routesNames.PROJETO_EDITAR,
+		path: '/projetos/:id/editar',
+		component: ProjetoEditar,
+		meta: {
+			page: {
+				title: 'Editar Projeto',
 			},
 			requiresAuth: true,
 			authorities: ['PerfilSistema.Projeto'],

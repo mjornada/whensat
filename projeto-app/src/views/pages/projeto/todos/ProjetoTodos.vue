@@ -72,6 +72,8 @@ export default {
 			const id = item.id
 			if (item.situacao === 'ENCERRADO') {
 				this.$router.push({ name: routesNames.PROJETO_VISUALIZAR, params: { id } })
+			} else {
+				this.$router.push({ name: routesNames.PROJETO_EDITAR, params: { id } })
 			}
 		},
 		getFiltros() {

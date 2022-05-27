@@ -6,4 +6,5 @@ export default {
 	PROJETO_TODOS: 'ProjetoTodos',
 	PROJETO_NOVO: 'ProjetoNovo',
 	PROJETO_VISUALIZAR: 'ProjetoVisualizar',
+	PROJETO_EDITAR: 'ProjetoEditar',
 }

@@ -66,78 +66,78 @@ api:docker:
   script:
     - build-and-push pom.xml
 
-# ----------------------------------------------------------------------------------------------------------------------
-# APP (FRONTEND)
-# ----------------------------------------------------------------------------------------------------------------------
+ ----------------------------------------------------------------------------------------------------------------------
+ APP (FRONTEND)
+ ----------------------------------------------------------------------------------------------------------------------
 
-#.app:branch: &app_branch
-#  image: $AZ_REGISTRY/hal/images/gitlab-ci-node:latest
-#  tags:
-#    - hal
-#  before_script:
-#    - cd $CI_PROJECT_NAME-app
-#  only:
-#    refs:
-#      - merge_requests
-#      - tags
-#  cache:
-#    key: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG-app
-#    paths:
-#      - $CI_PROJECT_NAME-app/node_modules/
-#
-#app:build:
-#  <<: *app_branch
-#  stage: Build
-#  script:
-#    - build
-#
-#app:build-and-test:
-#  <<: *app_branch
-#  stage: Build and Test
-#  script:
-#    - build
-#    - unit-testing
-#  artifacts:
-#    name: $CI_PROJECT_NAME-$CI_PIPELINE_ID-app
-#    expire_in: 1 day
-#    paths:
-#      - $CI_PROJECT_NAME-app/.tmp/
-#
-#app:qa:
-#  <<: *app_branch
-#  image: $AZ_REGISTRY/hal/images/gitlab-ci-sonar:latest
-#  stage: QA
-#  allow_failure: true
-#  script:
-#    - code-analysis
-#  dependencies:
-#    - app:build-and-test
-#
-#.app:tag: &app_tag
-#  image: $AZ_REGISTRY/hal/images/gitlab-ci-node:latest
-#  tags:
-#    - hal
-#  before_script:
-#    - cd $CI_PROJECT_NAME-app
-#  only:
-#    refs:
-#      - tags
-#  cache:
-#    key: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG-app
-#    paths:
-#      - $CI_PROJECT_NAME-app/node_modules/
-#  dependencies: []
-#
-#app:publish:
-#  <<: *app_tag
-#  stage: Publish
-#  script:
-#    - publish
-#
-#app:docker:
-#  <<: *app_tag
-#  image: $AZ_REGISTRY/hal/images/gitlab-ci-docker:latest
-#  stage: Docker
-#  script:
-#    - build-and-push package.json
-#  cache: {}
+.app:branch: &app_branch
+  image: $AZ_REGISTRY/hal/images/gitlab-ci-node:latest
+  tags:
+    - hal
+  before_script:
+    - cd $CI_PROJECT_NAME-app
+  only:
+    refs:
+      - merge_requests
+      - tags
+  cache:
+    key: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG-app
+    paths:
+      - $CI_PROJECT_NAME-app/node_modules/
+
+app:build:
+  <<: *app_branch
+  stage: Build
+  script:
+    - build
+
+app:build-and-test:
+  <<: *app_branch
+  stage: Build and Test
+  script:
+    - build
+    - unit-testing
+  artifacts:
+    name: $CI_PROJECT_NAME-$CI_PIPELINE_ID-app
+    expire_in: 1 day
+    paths:
+      - $CI_PROJECT_NAME-app/.tmp/
+
+app:qa:
+  <<: *app_branch
+  image: $AZ_REGISTRY/hal/images/gitlab-ci-sonar:latest
+  stage: QA
+  allow_failure: true
+  script:
+    - code-analysis
+  dependencies:
+    - app:build-and-test
+
+.app:tag: &app_tag
+  image: $AZ_REGISTRY/hal/images/gitlab-ci-node:latest
+  tags:
+    - hal
+  before_script:
+    - cd $CI_PROJECT_NAME-app
+  only:
+    refs:
+      - tags
+  cache:
+    key: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG-app
+    paths:
+      - $CI_PROJECT_NAME-app/node_modules/
+  dependencies: []
+
+app:publish:
+  <<: *app_tag
+  stage: Publish
+  script:
+    - publish
+
+app:docker:
+  <<: *app_tag
+  image: $AZ_REGISTRY/hal/images/gitlab-ci-docker:latest
+  stage: Docker
+  script:
+    - build-and-push package.json
+  cache: {}

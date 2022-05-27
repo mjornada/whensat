@@ -8,6 +8,7 @@ target
 ## front-end
 node_modules
 .tmp
+app
 
 ## arquivos padrão do hal-cli
 .docker-database.yml

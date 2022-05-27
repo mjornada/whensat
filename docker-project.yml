@@ -4,10 +4,10 @@ services:
     image: registry.nexus.azi.srv.br/treinamento/templates/projeto-app:1.0.0-ALPHA
     env_file:
       - variables.env
-#  projeto-app:
-#    image: registry.nexus.azi.srv.br/treinamento/templates/projeto-app:1.0.0-ALPHA
-#    env_file:
-#      - variables.env
+  projeto-app:
+    image: registry.nexus.azi.srv.br/treinamento/templates/projeto-app:1.0.0-ALPHA
+    env_file:
+      - variables.env
 networks:
   default:
     external:

@@ -13,6 +13,10 @@ class ProjetoApiClient {
 	async inserir(dados) {
 		return await axios.post('/projeto/api/projetos', dados)
 	}
+
+	async editar(id, dados) {
+		return await axios.put(`/projeto/api/projetos/${id}`, dados)
+	}
 }
 
 export default new ProjetoApiClient()
