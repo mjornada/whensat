@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class AtualizarProjetoFactory {
+public class AtualizarProjetoUseCaseFactory {
 
     @Bean
     public AtualizarProjetoUseCase createAtualizarProjetoUseCase(ProjetoDataProvider projetoDataProvider, AtualizarProjetoOutputDataConverter atualizarProjetoOutputDataConverter) {

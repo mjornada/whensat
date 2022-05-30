@@ -12,4 +12,6 @@ public interface ProjetoDataProvider {
     Projeto atualizar(Projeto projeto);
 
     ListaPaginadaDTO<Projeto> buscarPorFiltro(Projeto.Filtro filtro);
+
+    void remover(Long id);
 }
