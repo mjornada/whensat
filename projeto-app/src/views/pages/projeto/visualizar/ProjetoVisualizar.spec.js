@@ -1,119 +1,101 @@
-import {shallowMount} from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import flushPromises from 'flush-promises'
 import Vuex from 'vuex'
-import DadosGeraisVisualizacao from './DadosGeraisVisualizacao'
 import applicationTestBuilder from '@/application/ApplicationTestBuilder'
-import {actionTypes, mutationTypes} from '@/core/constants'
+import { actionTypes, mutationTypes, routesNames } from '@/core/constants'
+import ProjetoVisualizar from './ProjetoVisualizar'
 
-describe('DadosGeraisVisualizacao', () => {
-    let wrapper, actions, localVue, router, store, state, mutations
+describe('ProjetoVisualizar', () => {
+	let wrapper, actions, localVue, router, store, state, mutations
 
-    const dadosGeraisObjeto = {
-        id: 27
-    }
+	const projetoDados = {
+		id: 27,
+		nome: 'Teste',
+	}
 
-    beforeEach(() => {
-        localVue = applicationTestBuilder.build()
+	beforeEach(() => {
+		localVue = applicationTestBuilder.build()
 
-        state = {
-            loki: {
-                user: {
-                    domainId: 1
-                }
-            },
-            projeto: {
-                dadosGerais: {}
-            }
-        }
+		state = {
+			projeto: {
+				dados: {},
+			},
+		}
 
-        router = {
-            init: jest.fn(),
-            push: jest.fn(),
-            replace: jest.fn(),
-            history: {
-                current: {
-                    name: 'DadosGeraisVisualizacao',
-                    params: {
-                        id: dadosGeraisObjeto.id
-                    }
-                }
-            }
-        }
+		router = {
+			init: jest.fn(),
+			push: jest.fn(),
+			replace: jest.fn(),
+			history: {
+				current: {
+					name: 'ProjetoVisualizar',
+					params: {
+						id: projetoDados.id,
+					},
+				},
+			},
+		}
 
-        mutations = {
-            [mutationTypes.LOKI.SHOW_ALERT]: jest.fn()
-        }
+		mutations = {
+			[mutationTypes.LOKI.SHOW_ALERT]: jest.fn(),
+		}
 
-        actions = {
-            [actionTypes.PROJETO.BUSCAR_DADOS_GERAIS]: jest.fn().mockReturnValue(dadosGeraisObjeto)
-        }
+		actions = {
+			[actionTypes.PROJETO.BUSCAR_POR_ID]: jest.fn().mockReturnValue(projetoDados),
+		}
 
-        store = new Vuex.Store({state, mutations, actions})
-    })
+		store = new Vuex.Store({ state, mutations, actions })
+	})
 
-    describe('Mounted', () => {
-        it('Deve buscar os dados do projeto', async () => {
-            wrapper = shallowMount(DadosGeraisVisualizacao, {
-                store,
-                router,
-                localVue
-            })
+	describe('Mounted', () => {
+		it('Deve buscar os dados do projeto', async () => {
+			wrapper = shallowMount(ProjetoVisualizar, {
+				store,
+				router,
+				localVue,
+			})
 
-            await flushPromises()
+			await flushPromises()
 
-            expect(actions[actionTypes.PROJETO.BUSCAR_DADOS_GERAIS]).toBeDefined()
-        })
+			expect(wrapper.vm.projetoId).toEqual(projetoDados.id)
+			expect(actions[actionTypes.PROJETO.BUSCAR_POR_ID]).toHaveBeenCalledTimes(1)
+			expect(actions[actionTypes.PROJETO.BUSCAR_POR_ID].mock.calls[0][1]).toEqual(projetoDados.id)
+		})
 
-        it('Não deve buscar dos dados gerais do projeto', async () => {
-            actions[actionTypes.PROJETO.BUSCAR_DADOS_GERAIS] = jest.fn().mockRejectedValueOnce(new Error('Ocorreu um erro ao realizar a operação.'))
+		it('Deve falhar ao buscar dos dados do projeto', async () => {
+			actions[actionTypes.PROJETO.BUSCAR_POR_ID] = jest
+				.fn()
+				.mockRejectedValue(new Error('Ocorreu um erro ao realizar a operação.'))
 
-            wrapper = shallowMount(DadosGeraisVisualizacao, {
-                localVue,
-                store: new Vuex.Store({state, mutations, actions}),
-                router
-            })
-            await flushPromises()
+			wrapper = shallowMount(ProjetoVisualizar, {
+				localVue,
+				store: new Vuex.Store({ state, mutations, actions }),
+				router,
+			})
+			await flushPromises()
 
-            expect(mutations[mutationTypes.LOKI.SHOW_ALERT].mock.calls[0][1]).toEqual({
-                message: 'Ocorreu um erro ao realizar a operação.',
-                type: 'error'
-            })
-        })
-    })
+			expect(mutations[mutationTypes.LOKI.SHOW_ALERT].mock.calls[0][1]).toEqual({
+				message: 'Ocorreu um erro ao realizar a operação.',
+				type: 'error',
+			})
+		})
+	})
 
-    describe('Events', () => {
-        it('Deve emitir o evento de voltar para a tela de listagem dos projetos', () => {
-            state.comum = {
-                rota: {
-                    origem: 'TodosProjetos'
-                }
-            }
+	describe('Events', () => {
+		it('Deve tratar o evento de voltar para a tela de listagem dos projetos', () => {
+			wrapper = shallowMount(ProjetoVisualizar, {
+				store: new Vuex.Store({ state, mutations, actions }),
+				localVue,
+				router,
+				stubs: {
+					'botao-texto': {
+						template: '<button class="stub" @click="$emit(\'click\')"></button>',
+					},
+				},
+			})
 
-            wrapper = shallowMount(DadosGeraisVisualizacao, {
-                store: new Vuex.Store({state, mutations, actions}),
-                localVue,
-                router,
-                stubs: {
-                    BotaoVoltar: '<div><button class="stub" @click="$emit(\'voltar\')"></button></div>'
-                }
-            })
-
-            wrapper.find('button[class="stub"]').trigger('click')
-            expect(router.push.mock.calls[0][0]).toEqual({name: 'TodosProjetos'})
-        })
-
-        it('Deve emitir o evento de avançar', () => {
-            wrapper = shallowMount(DadosGeraisVisualizacao, {
-                localVue,
-                router,
-                store,
-                stubs: {
-                    BotaoAvancar: '<div><button class="stub" @click="$emit(\'avancar\')"></button></div>'
-                }
-            })
-
-            wrapper.find('button[class="stub"]').trigger('click')
-            expect(router.push.mock.calls[0][0]).toEqual({name: 'TarefasVisualizacao', params: 27})
-        })
-    })
+			wrapper.find('button[class="stub"]').trigger('click')
+			expect(router.push.mock.calls[0][0]).toEqual({ name: routesNames.PROJETO_TODOS })
+		})
+	})
 })

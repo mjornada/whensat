@@ -128,7 +128,7 @@ module.exports = {
 		'vue/v-bind-style': 'warn',
 		'vue/v-on-style': 'warn',
 		'vue/v-slot-style': 'warn',
-		'vue/valid-v-slot': ['error', { allowModifiers: true }],
+		'vue/valid-v-slot': ['warn', { allowModifiers: true }],
 		'vue/valid-v-bind-sync': 'warn',
 	},
 }

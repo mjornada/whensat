@@ -83,22 +83,10 @@ export default {
 	$_veeValidate: {
 		validator: 'new',
 	},
-	async beforeRouteLeave(to, from, next) {
-		if (this.verificarRotaAvancar(to.name)) {
-			try {
-				await this.validarDadosFormulario()
-			} catch (e) {
-				this.mostrarNotificacaoErro(e.message)
-			}
-		} else {
-			next()
-		}
-	},
 	data() {
 		return {
 			dados: {},
 			projetoId: null,
-			rotasAvancar: ['TarefasEdicao'],
 			categoriasProjetos,
 			situacoes,
 		}
@@ -137,11 +125,6 @@ export default {
 		},
 		redirecionarParaProximaPagina() {
 			this.$router.push({ name: routesNames.PROJETO_TODOS })
-		},
-		verificarRotaAvancar(rotaDestino) {
-			return this.rotasAvancar.some((rota) => {
-				return rota.name === rotaDestino
-			})
 		},
 	},
 }

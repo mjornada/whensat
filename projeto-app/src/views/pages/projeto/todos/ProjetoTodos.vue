@@ -1,20 +1,18 @@
 <template>
 	<div>
 		<az-toolbar>
-			<botao-primario
-				slot="actions"
-				icone="add_circle"
-				texto="Novo"
-				@click="tratarEventoNovoProjeto"
-			></botao-primario>
+			<template #actions>
+				<botao-primario icone="add_circle" texto="Novo" @click="tratarEventoNovoProjeto"></botao-primario>
+			</template>
 
-			<az-search
-				slot="simpleSearch"
-				:filter="Object.create(null)"
-				simple-search-placeholder="Busque por nome"
-				@simple-search="tratarEventoBuscaSimples"
-			>
-			</az-search>
+			<template #simpleSearch>
+				<az-search
+					:filter="Object.create(null)"
+					simple-search-placeholder="Busque por nome"
+					@simple-search="tratarEventoBuscaSimples"
+				>
+				</az-search>
+			</template>
 		</az-toolbar>
 
 		<projeto-todos-tabela

@@ -1,233 +1,169 @@
-import {shallowMount} from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import flushPromises from 'flush-promises'
 import Vuex from 'vuex'
-import DadosGeraisEdicao from './DadosGeraisEdicao'
+import ProjetoEditar from './ProjetoEditar'
 import applicationTestBuilder from '@/application/ApplicationTestBuilder'
-import {actionTypes, mutationTypes} from '@/core/constants'
+import { actionTypes, mutationTypes, routesNames } from '@/core/constants'
 
-describe('DadosGeraisEdicao', () => {
-    let wrapper, actions, localVue, router, store, state, mutations, $validator
+describe('ProjetoEditar', () => {
+	let wrapper, actions, localVue, router, store, state, mutations, $validator
 
-    const errors = {
-        collect: jest.fn()
-    }
+	const errors = {
+		collect: jest.fn(),
+	}
 
-    const dadosGeraisObjeto = {
-        id: 14
-    }
+	const projetoDados = {
+		id: 14,
+	}
 
-    beforeEach(() => {
-        localVue = applicationTestBuilder.build()
+	beforeEach(() => {
+		localVue = applicationTestBuilder.build()
 
-        state = {
-            loki: {
-                user: {
-                    domainId: 1
-                },
-                uploadedFiles: []
-            },
-            projeto: {
-                dadosGerais: {}
-            }
-        }
+		state = {
+			projeto: {
+				dados: {},
+			},
+		}
 
-        router = {
-            init: jest.fn(),
-            push: jest.fn(),
-            replace: jest.fn(),
-            history: {
-                current: {
-                    name: 'DadosGeraisEdicao',
-                    params: {
-                        id: dadosGeraisObjeto.id
-                    }
-                }
-            }
-        }
+		router = {
+			init: jest.fn(),
+			push: jest.fn(),
+			replace: jest.fn(),
+			history: {
+				current: {
+					name: 'ProjetoEditar',
+					params: {
+						id: projetoDados.id,
+					},
+				},
+			},
+		}
 
-        mutations = {
-            [mutationTypes.LOKI.DISABLE_GLOBAL_LOADING]: jest.fn(),
-            [mutationTypes.LOKI.ENABLE_GLOBAL_LOADING]: jest.fn(),
-            [mutationTypes.LOKI.SET_LOADING_MESSAGE]: jest.fn(),
-            [mutationTypes.LOKI.SHOW_ALERT]: jest.fn(),
-            ['SET_UPLOADED_FILES']: jest.fn()
-        }
+		mutations = {
+			[mutationTypes.LOKI.DISABLE_GLOBAL_LOADING]: jest.fn(),
+			[mutationTypes.LOKI.ENABLE_GLOBAL_LOADING]: jest.fn(),
+			[mutationTypes.LOKI.SET_LOADING_MESSAGE]: jest.fn(),
+			[mutationTypes.LOKI.SHOW_ALERT]: jest.fn(),
+			['SET_UPLOADED_FILES']: jest.fn(),
+		}
 
-        actions = {
-            [actionTypes.PROJETO.BUSCAR_DADOS_GERAIS]: jest.fn().mockReturnValue(dadosGeraisObjeto),
-            [actionTypes.PROJETO.SALVAR_DADOS_GERAIS]: jest.fn()
-        }
+		actions = {
+			[actionTypes.PROJETO.BUSCAR_POR_ID]: jest.fn().mockReturnValue(projetoDados),
+			[actionTypes.PROJETO.EDITAR]: jest.fn(),
+		}
 
-        store = new Vuex.Store({state, mutations, actions})
+		store = new Vuex.Store({ state, mutations, actions })
 
-        $validator = {
-            _base: {
-                validateAll: jest.fn().mockReturnValue(true)
-            }
-        }
-    })
+		$validator = {
+			_base: {
+				validateAll: jest.fn().mockReturnValue(true),
+			},
+		}
+	})
 
-    describe('Mounted', () => {
-        it('Deve buscar os dados do projeto', async () => {
-            shallowMount(DadosGeraisEdicao, {
-                store,
-                router,
-                localVue,
-                mocks: {
-                    errors
-                }
-            })
+	describe('Mounted', () => {
+		it('Deve buscar os dados do projeto', async () => {
+			shallowMount(ProjetoEditar, {
+				store,
+				router,
+				localVue,
+				mocks: {
+					errors,
+				},
+			})
+			await flushPromises()
 
-            await flushPromises()
+			expect(actions[actionTypes.PROJETO.BUSCAR_POR_ID]).toHaveBeenCalledTimes(1)
+			expect(actions[actionTypes.PROJETO.BUSCAR_POR_ID].mock.calls[0][1]).toEqual(projetoDados.id)
+		})
 
-            expect(actions[actionTypes.PROJETO.BUSCAR_DADOS_GERAIS]).toBeDefined()
-        })
+		it('Deve falhar ao buscar os dados do projeto', async () => {
+			actions[actionTypes.PROJETO.BUSCAR_POR_ID] = jest
+				.fn()
+				.mockRejectedValue(new Error('Ocorreu um erro ao realizar a operação.'))
 
-        it('Deve falhar ao buscar os dados gerais', async () => {
-            actions[actionTypes.PROJETO.BUSCAR_DADOS_GERAIS] = jest.fn().mockRejectedValueOnce(new Error('Ocorreu um erro ao realizar a operação.'))
+			wrapper = shallowMount(ProjetoEditar, {
+				store: new Vuex.Store({ state, mutations, actions }),
+				router,
+				localVue,
+				mocks: {
+					errors,
+				},
+			})
+			await flushPromises()
 
-            wrapper = shallowMount(DadosGeraisEdicao, {
-                store: new Vuex.Store({state, mutations, actions}),
-                router,
-                localVue,
-                mocks: {
-                    errors
-                }
-            })
+			expect(mutations[mutationTypes.LOKI.SHOW_ALERT].mock.calls[0][1]).toEqual({
+				message: 'Ocorreu um erro ao realizar a operação.',
+				type: 'error',
+			})
+		})
+	})
 
-            await flushPromises()
+	describe('Events', () => {
+		it('Deve tratar o evento salvar projeto com sucesso', async () => {
+			wrapper = shallowMount(ProjetoEditar, {
+				localVue,
+				store,
+				router,
+				stubs: {
+					'botao-primario': {
+						template: '<button class="stub" @click="$emit(\'click\')"></button>',
+					},
+				},
+				mocks: {
+					$validator,
+					errors,
+				},
+			})
 
-            expect(mutations[mutationTypes.LOKI.SHOW_ALERT].mock.calls[0][1]).toEqual({
-                message: 'Ocorreu um erro ao realizar a operação.',
-                type: 'error'
-            })
-        })
-    })
+			wrapper.find('button[class="stub"').trigger('click')
+			await flushPromises()
 
-    describe('BeforeRouteLeave', () => {
-        it('Deve ir para a tela de listagem ao deixar a aba', () => {
-            wrapper = shallowMount(DadosGeraisEdicao, {
-                store,
-                router,
-                localVue,
-                mocks: {
-                    errors
-                }
-            })
+			expect($validator._base.validateAll).toHaveBeenCalledTimes(1)
+			expect(actions[actionTypes.PROJETO.EDITAR]).toHaveBeenCalled()
+			expect(mutations[mutationTypes.LOKI.SHOW_ALERT]).toHaveBeenCalled()
+		})
 
-            state.comum = {
-                rota: {
-                    origem: 'TodosProjetos'
-                }
-            }
+		it('Deve falhar ao tratar o evento de salvar', async () => {
+			$validator._base.validateAll = jest.fn().mockReturnValue(false)
 
-            const next = jest.fn()
-            wrapper.vm.$options.beforeRouteLeave[0].call(wrapper.vm, {name: 'TodosProjetos'}, null, next)
-            expect(next).toHaveBeenCalled()
-        })
-    })
+			wrapper = shallowMount(ProjetoEditar, {
+				localVue,
+				store,
+				router,
+				stubs: {
+					'botao-primario': {
+						template: '<button class="stub" @click="$emit(\'click\')"></button>',
+					},
+				},
+				mocks: {
+					$validator,
+					errors,
+				},
+			})
 
-    describe('Events', () => {
-        xit('Deve emitir o evento de salvar os dados do projeto com sucesso', async () => {
-            wrapper = shallowMount(DadosGeraisEdicao, {
-                localVue,
-                store,
-                router,
-                stubs: {
-                    BotaoSalvar: '<div><button class="stub" @click="$emit(\'salvar\')"></button></div>'
-                },
-                mocks: {
-                    $validator,
-                    errors
-                }
-            })
+			await expect(wrapper.vm.tratarEventoSalvarEAvancar()).rejects.toThrow('Preencha os campos obrigatórios.')
+			expect(actions[actionTypes.PROJETO.EDITAR]).not.toHaveBeenCalled()
+		})
 
-            wrapper.find('button[class="stub"').trigger('click')
-            await flushPromises()
+		it('Deve emitir o evento de voltar com sucesso', () => {
+			wrapper = shallowMount(ProjetoEditar, {
+				store: new Vuex.Store({ state, actions, mutations }),
+				localVue,
+				router,
+				stubs: {
+					'botao-texto': {
+						template: '<button class="stub" @click="$emit(\'click\')"></button>',
+					},
+				},
+				mocks: {
+					errors,
+				},
+			})
 
-            const dadosGerais = Object.assign({}, wrapper.vm.dadosGerais)
+			wrapper.find('button[class="stub"]').trigger('click')
 
-            expect(mutations[mutationTypes.LOKI.SET_LOADING_MESSAGE].mock.calls[0][1]).toBe('Salvando o projeto...')
-            expect(actions[actionTypes.PROJETO.SALVAR_DADOS_GERAIS].mock.calls[0][1]).toEqual(dadosGerais)
-            expect(mutations[mutationTypes.LOKI.SHOW_ALERT]).toHaveBeenCalled()
-        })
-
-        it('Deve falhar ao emitir o evento de salvar e avançar com os campos obrigatórios', async () => {
-            $validator._base.validateAll = jest.fn().mockReturnValue(false)
-
-            wrapper = shallowMount(DadosGeraisEdicao, {
-                localVue,
-                store,
-                router,
-                stubs: {
-                    BotaoSalvarAvancar: '<div><button class="stub" @click="$emit(\'salvarEAvancar\')"></button></div>'
-                },
-                mocks: {
-                    $validator,
-                    errors
-                }
-            })
-
-            await expect(wrapper.vm.tratarEventoSalvarEAvancar()).rejects.toThrow('Preencha os campos obrigatórios.')
-            expect(actions[actionTypes.PROJETO.SALVAR_DADOS_GERAIS]).not.toHaveBeenCalled()
-        })
-
-        it('Deve emitir o evento de salvar e avançar os dados do projeto com sucesso', async () => {
-            wrapper = shallowMount(DadosGeraisEdicao, {
-                localVue,
-                store,
-                router,
-                stubs: {
-                    BotaoSalvarAvancar: '<div><button class="stub" @click="$emit(\'salvarEAvancar\')"></button></div>'
-                },
-                mocks: {
-                    $validator,
-                    errors
-                }
-            })
-
-            await flushPromises()
-
-            wrapper.vm.dadosGerais.tipo = 'Sem Disputa'
-            wrapper.vm.dadosGerais.nomeContato = 'Thalita'
-            wrapper.vm.dadosGerais.nomeTelefone = '232423333'
-            wrapper.vm.dadosGerais.prazoEntrega = '60'
-            wrapper.vm.dadosGerais.localEntrega = 'DETRAN'
-            wrapper.vm.dadosGerais.exibeValorReferencia = false
-            wrapper.vm.dadosGerais.dataHoraAbertura = new Date('2018-02-05T12:00:00')
-            wrapper.vm.dadosGerais.dataHoraEncerramento = new Date('2018-02-10T12:00:00')
-
-            wrapper.find('button[class="stub"').trigger('click')
-            await flushPromises()
-
-            const dadosGerais = Object.assign({}, wrapper.vm.dadosGerais)
-
-            expect(mutations[mutationTypes.LOKI.SET_LOADING_MESSAGE].mock.calls[0][1]).toBe('Salvando o projeto...')
-            expect(actions[actionTypes.PROJETO.SALVAR_DADOS_GERAIS].mock.calls[0][1]).toEqual(dadosGerais)
-            expect(mutations[mutationTypes.LOKI.SHOW_ALERT]).toHaveBeenCalled()
-        })
-
-        it('Deve emitir o evento de voltar com sucesso', () => {
-            state.comum = {
-                rota: {
-                    origem: 'TodosProjetos'
-                }
-            }
-
-            wrapper = shallowMount(DadosGeraisEdicao, {
-                store: new Vuex.Store({state, actions, mutations}),
-                localVue,
-                router,
-                stubs: {
-                    BotaoVoltar: '<div><button class="stub" @click="$emit(\'voltar\')"></button></div>'
-                },
-                mocks: {
-                    errors
-                }
-            })
-
-            wrapper.find('button[class="stub"]').trigger('click')
-            expect(router.push.mock.calls[0][0]).toEqual({name: 'TodosProjetos'})
-        })
-    })
+			expect(router.push.mock.calls[0][0]).toEqual({ name: routesNames.PROJETO_TODOS })
+		})
+	})
 })
