@@ -22,6 +22,7 @@
 			:paginacao="$store.state.projeto.resultadoBuscaTodosProjetos.paginacao"
 			@paginar="tratarEventoPaginar"
 			@acessar="tratarEventoAcessar"
+			@excluir="tratarEventoExluir"
 		></projeto-todos-tabela>
 	</div>
 </template>
@@ -73,6 +74,11 @@ export default {
 			} else {
 				this.$router.push({ name: routesNames.PROJETO_EDITAR, params: { id } })
 			}
+		},
+		async tratarEventoExluir(item) {
+			await this.$store.dispatch(actionTypes.PROJETO.EXCLUIR, item.id)
+			this.mostrarNotificacaoSucesso('Projeto excluído com sucesso!')
+			await this.buscar()
 		},
 		getFiltros() {
 			return _.cloneDeep(this.$store.state.projeto.resultadoBuscaTodosProjetos.filtros)

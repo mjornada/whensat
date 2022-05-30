@@ -42,4 +42,8 @@ export default {
 		const { data } = await api.projeto.editar(dados.id, dados)
 		commit(mutationTypes.PROJETO.SET_DADOS_PROJETO, data)
 	},
+
+	async [actionTypes.PROJETO.EXCLUIR]({ state }, projetoId) {
+		await api.projeto.excluir(projetoId)
+	},
 }

@@ -51,4 +51,12 @@ describe('Actions', () => {
 			uri: 'http://localhost/',
 		})
 	})
+
+	it('Deve chamar a action PROJETO.EXCLUIR', async () => {
+		api.projeto.excluir = jest.fn().mockReturnValue(true)
+
+		await actions[actionTypes.PROJETO.EXCLUIR](5)
+
+		expect(api.projeto.excluir).toHaveBeenCalledTimes(1)
+	})
 })

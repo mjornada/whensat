@@ -90,6 +90,7 @@ describe('ProjetoTodos', () => {
 
 		actions = {
 			[actionTypes.PROJETO.BUSCAR_TODOS]: jest.fn().mockReturnValue(projetos),
+			[actionTypes.PROJETO.EXCLUIR]: jest.fn(),
 		}
 	})
 
@@ -152,6 +153,31 @@ describe('ProjetoTodos', () => {
 
 			wrapper.find('button[class="stub"]').trigger('click')
 			expect(router.push.mock.calls[0][0]).toEqual({ name: routesNames.PROJETO_VISUALIZAR, params: { id: 7 } })
+		})
+
+		it('Deve tratar o evento de excluir projeto', async () => {
+			wrapper = shallowMount(ProjetoTodos, {
+				localVue,
+				vuetify,
+				router,
+				store: criarStore({ state, mutations, actions }),
+				stubs: {
+					ProjetoTodosTabela: {
+						template: '<button class="stub" @click="$emit(\'excluir\', {id: 7})"></button>',
+					},
+				},
+			})
+
+			wrapper.find('.stub').trigger('click')
+			await flushPromises()
+
+			expect(actions[actionTypes.PROJETO.EXCLUIR]).toHaveBeenCalledTimes(1)
+			expect(actions[actionTypes.PROJETO.EXCLUIR].mock.calls[0][1]).toEqual(7)
+			expect(mutations[mutationTypes.LOKI.SHOW_ALERT].mock.calls[0][1]).toEqual({
+				type: 'success',
+				message: 'Projeto excluído com sucesso!',
+			})
+			expect(actions[actionTypes.PROJETO.BUSCAR_TODOS]).toHaveBeenCalledTimes(2)
 		})
 	})
 

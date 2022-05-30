@@ -6,8 +6,9 @@ export default {
 	},
 	PROJETO: {
 		BUSCAR_TODOS: 'buscarTodosProjetos',
-		SALVAR_NOVO: 'SalvarNovoProjeto',
-		BUSCAR_POR_ID: 'BuscarProjetoPorId',
-		EDITAR: 'EditarProjeto',
+		SALVAR_NOVO: 'salvarNovoProjeto',
+		BUSCAR_POR_ID: 'buscarProjetoPorId',
+		EDITAR: 'editarProjeto',
+		EXCLUIR: 'excluirProjeto',
 	},
 }

@@ -17,6 +17,10 @@ class ProjetoApiClient {
 	async editar(id, dados) {
 		return await axios.put(`/projeto/api/projetos/${id}`, dados)
 	}
+
+	async excluir(id) {
+		return await axios.delete(`/projeto/api/projetos/${id}`)
+	}
 }
 
 export default new ProjetoApiClient()

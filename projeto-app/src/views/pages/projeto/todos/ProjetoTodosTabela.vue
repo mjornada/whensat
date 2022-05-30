@@ -35,6 +35,14 @@
 									</template>
 									Acessar
 								</v-tooltip>
+								<v-tooltip top class="ml-2">
+									<template #activator="{ on }">
+										<a v-on="on" @click.stop="$emit('excluir', item)">
+											<span class="material-icons">delete</span>
+										</a>
+									</template>
+									Excluir
+								</v-tooltip>
 							</td>
 						</tr>
 					</tbody>

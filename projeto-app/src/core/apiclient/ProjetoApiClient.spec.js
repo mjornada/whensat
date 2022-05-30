@@ -10,6 +10,13 @@ jest.mock('axios', () => ({
 			resolve({ data: mockRetornoApi })
 		})
 	},
+	delete(_url) {
+		return new Promise((resolve) => {
+			verboHttp = 'delete'
+			url = _url
+			resolve({ data: mockRetornoApi })
+		})
+	},
 }))
 
 describe('ProjetoApiClient', () => {
@@ -30,5 +37,15 @@ describe('ProjetoApiClient', () => {
 		expect(data).toBeTruthy()
 		expect(verboHttp).toEqual('get')
 		expect(url).toEqual(`/projeto/api/projetos?page=${paginacao.page}&rowsPerPage=${paginacao.rowsPerPage}&`)
+	})
+
+	it('Deve chamar o verbo DELETE na url /projetos/api/projetos', async () => {
+		const projetoId = 5
+
+		const { data } = await projeto.excluir(projetoId)
+
+		expect(data).toBeTruthy()
+		expect(verboHttp).toEqual('delete')
+		expect(url).toEqual(`/projeto/api/projetos/${projetoId}`)
 	})
 })
