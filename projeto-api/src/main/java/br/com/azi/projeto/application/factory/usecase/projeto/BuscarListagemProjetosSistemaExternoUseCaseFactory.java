@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class BuscarListagemProjetosSistemaExternoFactory {
+public class BuscarListagemProjetosSistemaExternoUseCaseFactory {
 
     @Bean
     public BuscarListagemProjetosSistemaExternoUseCase createBuscarListagemProjetoSistemaExternoUseCase(SistemaDeControleDeProjetosIntegration sistemaDeControleDeProjetosIntegration,

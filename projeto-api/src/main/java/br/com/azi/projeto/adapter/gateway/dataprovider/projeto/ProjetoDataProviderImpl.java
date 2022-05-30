@@ -50,4 +50,9 @@ public class ProjetoDataProviderImpl implements ProjetoDataProvider {
                 .totalPages((long) projetos.getTotalPages())
                 .build();
     }
+
+    @Override
+    public void remover(Long id) {
+        projetoRepository.deleteById(id);
+    }
 }
