@@ -51,7 +51,7 @@ api:qa:
   only:
     refs:
       - tags
-  dependencies: []
+  dependencies: [ ]
 
 api:publish:
   <<: *api_tag
@@ -126,7 +126,7 @@ app:qa:
     key: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG-app
     paths:
       - $CI_PROJECT_NAME-app/node_modules/
-  dependencies: []
+  dependencies: [ ]
 
 app:publish:
   <<: *app_tag
@@ -140,4 +140,4 @@ app:docker:
   stage: Docker
   script:
     - build-and-push package.json
-  cache: {}
+  cache: { }
