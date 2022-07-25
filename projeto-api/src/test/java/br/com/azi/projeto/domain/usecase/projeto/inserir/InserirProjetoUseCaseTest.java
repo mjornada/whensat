@@ -52,7 +52,7 @@ public class InserirProjetoUseCaseTest {
                 .dataHoraInicial(Date.from(
                         LocalDateTime
                                 .now()
-                                .withDayOfMonth(10)
+                                .withDayOfMonth(15)
                                 .atZone(ZoneId.systemDefault())
                                 .toInstant()
                 ))
