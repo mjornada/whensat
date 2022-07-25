@@ -1,7 +1,7 @@
 version: '3'
 services:
   projeto-api:
-    image: registry.nexus.azi.srv.br/treinamento/templates/projeto-api:projeto
+    image: registry.nexus.azi.srv.br/treinamento/templates/projeto-api:1.0.0-ALPHA
     env_file:
       - variables.env
 #  projeto-app:

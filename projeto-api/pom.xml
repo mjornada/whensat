@@ -16,7 +16,7 @@
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
         <hal-spring-boot-starter-liquibase.version>4.1.0</hal-spring-boot-starter-liquibase.version>
         <hal-config-migration.version>4.1.0</hal-config-migration.version>
-        <hal-spring-boot-starter-filemanager.version>4.1.0</hal-spring-boot-starter-filemanager.version>
+        <hal-spring-boot-starter-filemanager.version>4.2.0</hal-spring-boot-starter-filemanager.version>
         <keycloak.version>15.0.2</keycloak.version>
     </properties>
     <dependencyManagement>
