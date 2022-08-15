@@ -1,0 +1,24 @@
+{
+  "application": {
+    "name": "projeto-py"
+  },
+  "cloud": {
+    "config": {
+      "uri": "http://127.0.0.1:8000"
+    }
+  },
+  "hal": {
+    "config": {
+      "migration": {
+        "basePath": "src/resources/migration/config/master.json"
+      }
+    }
+  },
+  "liquibase": {
+    "command": {
+      "url": "postgresql://localhost/postgres",
+      "username": "postgresql",
+      "password": "Senha123!"
+    }
+  }
+}
