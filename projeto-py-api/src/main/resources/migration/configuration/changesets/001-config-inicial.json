@@ -1,0 +1,10 @@
+[
+  {
+    "key": "application.domain.url",
+    "value": "${DOMAIN}"
+  },
+  {
+    "key": "application.ssl",
+    "value": "${SSL}"
+  }
+]

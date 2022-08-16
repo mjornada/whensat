@@ -21,10 +21,10 @@ def create_api():
         # uvicorn_error.addHandler(fh1)
         # uvicon_access.addHandler(fh1)
         # uvicorn_logger.addHandler(fh1)
-        #
-        # formatter = logging.Formatter("%(asctime)s %(levelname)s [%(name)s] %(message)s")
-        # uvicorn_error.setFormatter(formatter)
-        # uvicon_access.setFormatter(formatter)
+
+        #formatter = logging.Formatter("%(asctime)s %(levelname)s [%(name)s] %(message)s")
+        #uvicorn_error.setFormatter(formatter)
+        #uvicon_access.setFormatter(formatter)
 
     from main.python.adapter.entrypoint.projeto import Projeto
     # app.include_router(ReadRoot.router)
