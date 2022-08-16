@@ -88,6 +88,7 @@ if __name__ == "__main__":
                 host="localhost",
                 port=4444,
                 log_level="info",
+                log_config=LOGGING_CONFIG,
                 access_log=False,
                 use_colors=False,
                 )
