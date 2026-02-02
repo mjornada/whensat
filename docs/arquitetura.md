@@ -1,12 +1,12 @@
 ## Arquitetura
 Em termos de implementação, o projeto é dividido em 2 grandes módulos/entregáveis:
-- __projeto-api__: responsável por fornecer sua API Rest tanto para o seu próprio frontend quanto para aplicações externas.
-- __projeto-app__: frontend principal deste sistema contendo as principais telas de manutenção.
+- __whensat-api__: responsável por fornecer sua API Rest tanto para o seu próprio frontend quanto para aplicações externas.
+- __whensat-app__: frontend principal deste sistema contendo as principais telas de manutenção.
 
 ### Organização dos pacotes
 ```bash
 src
-└── br.com.azi.projeto
+└── br.com.projeto
     └── adapter
         └── entrypoint
             └── controller
