@@ -19,7 +19,7 @@ class KeycloakListener {
 		this.configuration = {
 			url: '/auth',
 			realm: 'az',
-			clientId: 'projeto-app',
+			clientId: 'whensat-app',
 		}
 
 		this.keycloakAdapter = Keycloak(this.configuration)

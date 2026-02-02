@@ -116,11 +116,11 @@ Para subir o projeto a partir do docker basta utilizar o arquivo `docker-project
 
 ```yaml
   projeto-api:
-    image: registry.nexus.azi.srv.br/treinamento/templates/projeto-app:1.0.0-ALPHA
+    image: registry.nexus.azi.srv.br/treinamento/templates/whensat-app:1.0.0-ALPHA
     env_file:
       - variables.env
   projeto-app:
-    image: registry.nexus.azi.srv.br/treinamento/templates/projeto-app:1.0.0-ALPHA
+    image: registry.nexus.azi.srv.br/treinamento/templates/whensat-app:1.0.0-ALPHA
     env_file:
       - variables.env
 ```
