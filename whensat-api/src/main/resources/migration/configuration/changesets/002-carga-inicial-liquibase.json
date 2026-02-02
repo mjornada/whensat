@@ -9,15 +9,15 @@
   },
   {
     "key": "liquibase.command.url",
-    "value": "jdbc:postgresql://localhost/az"
+    "value": "${DATABASE_URL:jdbc:postgresql://localhost/ws}"
   },
   {
     "key": "liquibase.command.username",
-    "value": "postgres"
+    "value": "${DATABASE_USER:postgres}"
   },
   {
     "key": "liquibase.command.password",
-    "value": "postgres"
+    "value": "${DATABASE_PASSWORD:postgres}"
   }
 ]
 

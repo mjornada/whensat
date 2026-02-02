@@ -1,37 +1,64 @@
 import uvicorn
 from pyliquibase import Pyliquibase
-from hal_config_client_py.HalConfigFacade import HalConfigFacade
-from main.python.application.config.FastApiConfig import create_api
+# from hal_config_client_py.HalConfigFacade import HalConfigFacade
+# from main.python.application.config.FastApiConfig import create_api
+from application.config.FastApiConfig import create_api
 import configparser
 from logging import INFO
 import logging.config
+import os
+
+# --- Configuração de Caminhos Absolutos ---
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
-def execut_liquibase():
+def get_absolute_path(relative_path):
+    """Converte um caminho relativo (baseado no script) para absoluto."""
+    return os.path.abspath(os.path.join(BASE_DIR, relative_path))
+
+
+# --- Lógica do Liquibase ---
+def execut_liquibase(facade):
     config_file = configparser.RawConfigParser()
-    variables = hal_config_facade.get_environment('$.source.liquibase')
+    variables = facade.get_environment('$.source.liquibase')
 
-    config_file['DEFAULT']["changeLogFile"] = hal_config_facade.get_environment('$.source.liquibase.pyliquibase.path')
+    # Caminho absoluto completo do XML
+    xml_full_path = variables['pyliquibase']['path']
+
+    # SEPARAÇÃO CRUCIAL:
+    # 1. O diretório entra no searchPath
+    xml_dir = os.path.dirname(xml_full_path)
+    # 2. Apenas o nome do arquivo entra no changeLogFile
+    xml_filename = os.path.basename(xml_full_path)
+
+    # Define caminho absoluto para o arquivo de propriedades
+    props_path = get_absolute_path('../resources/migration/database/liquibase.properties')
+
+    os.makedirs(os.path.dirname(props_path), exist_ok=True)
+
+    # Configura o Liquibase corretamente
+    config_file['DEFAULT']["searchPath"] = xml_dir
+    config_file['DEFAULT']["changeLogFile"] = xml_filename  # Apenas 'master.xml'
 
     for key, value in variables['command'].items():
         config_file['DEFAULT'][f'liquibase.command.{key}'] = value
 
-    with open('../resources/migration/database/liquibase.properties', 'w') as file:
+    with open(props_path, 'w') as file:
         config_file.write(file)
-        file.close()
 
-    # 2 - executar migrations postgres/sqlserver/oracle
-    lb_props = '../resources/migration/database/liquibase.properties'
     try:
-        liquibase = Pyliquibase(
-            defaultsFile=lb_props,
-            logLevel='INFO')
+        # Pyliquibase lê o arquivo de propriedades configurado acima
+        liquibase = Pyliquibase(defaultsFile=props_path)
 
         # liquibase.execute('status')
         liquibase.execute('update')
     except Exception as e:
-        print(e)
+        print(f"Erro ao executar Liquibase: {e}")
         raise e
+
+
+# --- Configuração de Log ---
+log_file_path = get_absolute_path('../migrations.log')
 
 LOGGING_CONFIG = {
     "version": 1,
@@ -61,7 +88,7 @@ LOGGING_CONFIG = {
             'formatter': 'default',
             'class': 'logging.FileHandler',
             # 'mode': 'a',
-            'filename': '../migrations.log'
+            'filename': log_file_path
         },
     },
     "loggers": {
@@ -71,21 +98,47 @@ LOGGING_CONFIG = {
     },
 }
 
+
+# --- Mock da Configuração ---
+class MockHalConfig:
+    def __init__(self, path):
+        self.path = path
+
+    def start(self):
+        pass
+
+    def get_environment(self, query):
+        if 'liquibase' in query:
+            # Gera o caminho absoluto do XML
+            xml_absolute_path = get_absolute_path('../resources/migration/database/master.xml')
+
+            return {
+                'command': {
+                    'url': os.getenv('DATABASE_URL', 'jdbc:postgresql://localhost/ws'),
+                    'username': os.getenv('DATABASE_USER', 'postgres'),
+                    'password': os.getenv('DATABASE_PASSWORD', 'postgres'),
+                },
+                'pyliquibase': {'path': xml_absolute_path}
+            }
+        if 'logging_config' in query:
+            return LOGGING_CONFIG
+        return {}
+
+
+# --- Execução Principal ---
 if __name__ == "__main__":
-    # 1 - executar migrations mongo
     logging.basicConfig(level=INFO)
 
-    hal_config_facade = HalConfigFacade('../resources/application.json')
-    hal_config_facade.start()
+    hal_config_facade = MockHalConfig('../resources/application.json')
 
     logging.config.dictConfig(hal_config_facade.get_environment('$.source.logging_config'))
 
     # Run once at startup:
-    execut_liquibase()
+    execut_liquibase(hal_config_facade)
 
     ### 3 - start applicacao
     uvicorn.run(app=create_api(),
-                host="localhost",
+                host="0.0.0.0",
                 port=4444,
                 log_level="info",
                 log_config=LOGGING_CONFIG,

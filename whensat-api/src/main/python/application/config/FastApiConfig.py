@@ -26,7 +26,8 @@ def create_api():
         #uvicorn_error.setFormatter(formatter)
         #uvicon_access.setFormatter(formatter)
 
-    from main.python.adapter.entrypoint.projeto import Projeto
+    # from main.python.adapter.entrypoint.projeto import Projeto
+    from adapter.entrypoint.projeto import Projeto
     # app.include_router(ReadRoot.router)
     # app.include_router(ReadCliente.router_users)
     # app.include_router(CreateCliente.router_users_create)
