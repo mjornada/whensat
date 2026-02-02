@@ -14,6 +14,17 @@ A documentação para configurar e executar o projeto em desenvolvimento pode se
 Existe também uma nota técnica contendo mais detalhes sobre configurações necessárias no Setup (como ingestão do CelesTrak), permissão de acesso e
 compatibilidade. Para acessar, basta clicar [aqui](docs/nota-tecnica.md).
 
+## License
+
+This project is **not open source**.
+
+The source code is publicly available for viewing purposes only.
+All rights are reserved by the author.
+
+Unauthorized use, modification, or redistribution of this code,
+in whole or in part, is strictly prohibited.
+
+See the [LICENSE](LICENSE) file for details.
 
 -----
 
