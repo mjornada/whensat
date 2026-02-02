@@ -1,0 +1,24 @@
+[
+  {
+    "key": "liquibase.pyliquibase.path",
+    "value": "../resources/migration/database/master.xml"
+  },
+  {
+    "key": "liquibase.contexts",
+    "value": "${LIQUIBASE_CONTEXTS}"
+  },
+  {
+    "key": "liquibase.command.url",
+    "value": "jdbc:postgresql://localhost/az"
+  },
+  {
+    "key": "liquibase.command.username",
+    "value": "postgres"
+  },
+  {
+    "key": "liquibase.command.password",
+    "value": "postgres"
+  }
+]
+
+

@@ -1,0 +1,19 @@
+{
+  "changesetList": [
+    {
+      "name": "001-config-inicial",
+      "operation": "update",
+      "filePath": "../resources/migration/configuration/changesets/001-config-inicial.json"
+    },
+    {
+      "name": "002-carga-inicial-liquibase",
+      "operation": "update",
+      "filePath": "../resources/migration/configuration/changesets/002-carga-inicial-liquibase.json"
+    },
+    {
+      "name": "003-carga-inicial-logging-config",
+      "operation": "update",
+      "filePath": "../resources/migration/configuration/changesets/003-carga-inicial-logging-config.json"
+    }
+  ]
+}
