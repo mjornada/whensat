@@ -1,6 +1,4 @@
 from fastapi import FastAPI
-import logging
-import uvicorn
 
 
 def create_api():
@@ -22,16 +20,22 @@ def create_api():
         # uvicon_access.addHandler(fh1)
         # uvicorn_logger.addHandler(fh1)
 
-        #formatter = logging.Formatter("%(asctime)s %(levelname)s [%(name)s] %(message)s")
-        #uvicorn_error.setFormatter(formatter)
-        #uvicon_access.setFormatter(formatter)
+        # formatter = logging.Formatter("%(asctime)s %(levelname)s [%(name)s] %(message)s")
+        # uvicorn_error.setFormatter(formatter)
+        # uvicon_access.setFormatter(formatter)
 
     # from main.python.adapter.entrypoint.projeto import Projeto
-    from adapter.entrypoint.projeto import Projeto
-    # app.include_router(ReadRoot.router)
-    # app.include_router(ReadCliente.router_users)
-    # app.include_router(CreateCliente.router_users_create)
-    # app.include_router(ReadClienteID.router_users_id)
-    app.include_router(Projeto.router)
+    # from adapter.entrypoint.projeto import Projeto
+    from src.main.python.application.factory.container import Container
+
+    container = Container()
+    app.container = container
+
+    from src.main.python.adapter.entrypoint.health_check import health_check_controller
+    from src.main.python.adapter.entrypoint.health_check import projeto_controller
+
+    app.include_router(health_check_controller.router)
+    app.include_router(projeto_controller.router)
+    # app.include_router(Projeto.router)
 
     return app
