@@ -39,7 +39,7 @@ whensat-api/src/main/python/
 ```
 
 **2.2 Padrões de Codificação**
-*   **Nomenclatura:** Seguir o [PEP 8](https://peps.python.org/pep-0008/). Classes em `PascalCase`, funções/variáveis em `snake_case`.
+*   **Nomenclatura:** Seguir o [PEP 8](https://peps.python.org/pep-0008/). Classes em `PascalCase`, funções/variáveis/arquivos em `snake_case`.
 *   **Tipagem:** Utilizar *Type Hints* do Python em todos os métodos e funções.
 *   **Assincronismo:** Preferir `async/await` para operações de I/O (requisições, banco de dados).
 *   **Performance:** Utilizar a camada estratégica de cache (Redis) para minimizar a latência em cálculos intensivos de propagação orbital.

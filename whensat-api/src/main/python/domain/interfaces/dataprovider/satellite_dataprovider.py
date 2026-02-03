@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
-from typing import List, Optional
-from domain.entity.Satellite import Satellite
+from typing import Optional
+
+from src.main.python.domain.entity.satellite import Satellite
+
 
 class SatelliteDataProvider(ABC):
     @abstractmethod

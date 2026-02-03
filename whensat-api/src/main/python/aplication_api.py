@@ -1,6 +1,6 @@
 import uvicorn
 from pyliquibase import Pyliquibase
-from application.config.FastApiConfig import create_api
+from application.config.fast_api_config import create_api
 import configparser
 from logging import INFO
 import logging.config
@@ -14,7 +14,7 @@ def get_absolute_path(relative_path):
     return os.path.abspath(os.path.join(BASE_DIR, relative_path))
 
 
-def execut_liquibase(facade):
+def execute_liquibase(facade):
     config_file = configparser.RawConfigParser()
     variables = facade.get_environment('$.source.liquibase')
 
@@ -118,7 +118,7 @@ if __name__ == "__main__":
 
     logging.config.dictConfig(hal_config_facade.get_environment('$.source.logging_config'))
 
-    execut_liquibase(hal_config_facade)
+    execute_liquibase(hal_config_facade)
 
     uvicorn.run(app=create_api(),
                 host="0.0.0.0",

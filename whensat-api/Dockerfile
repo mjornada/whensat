@@ -15,7 +15,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# O código espera estar em src/main/python para rodar aplicationApi.py
+# O código espera estar em src/main/python para rodar aplication_api.py
 WORKDIR /app/whensat-api/src/main/python
 
 # Variáveis de ambiente padrão
