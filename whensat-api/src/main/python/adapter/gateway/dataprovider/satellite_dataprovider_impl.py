@@ -7,7 +7,7 @@ from src.main.python.domain.entity.satellite import Satellite
 from src.main.python.domain.interfaces.dataprovider.satellite_dataprovider import SatelliteDataProvider
 
 
-class SatellitePostgresDataProvider(SatelliteDataProvider):
+class SatelliteDataProviderImpl(SatelliteDataProvider):
     def __init__(self, db: Session):
         self.db = db
 
