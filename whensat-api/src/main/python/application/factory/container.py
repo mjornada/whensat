@@ -8,6 +8,8 @@ from src.main.python.domain.services.predictor_service import PredictorService
 from src.main.python.domain.usecase.health_check.healthcheck_usecase import HealthCheckUseCase
 from src.main.python.domain.usecase.predictor.satellite_prediction_usecase import SatellitePredictionUseCase
 from src.main.python.domain.usecase.projeto.projeto_usecase import ProjetoUseCase
+from src.main.python.domain.usecase.satellite.get_all_satellites_with_filter_usecase import \
+    GetAllSatellitesWithFilterUseCase
 from src.main.python.domain.usecase.satellite.ingest_satellite_data_usecase import IngestSatelliteDataUseCase
 
 
@@ -45,4 +47,9 @@ class Container(containers.DeclarativeContainer):
         SatellitePredictionUseCase,
         satellite_dataprovider=satellite_dataprovider,
         predictor_service=predictor_service
+    )
+
+    get_all_satellites_with_filter_usecase = providers.Factory(
+        GetAllSatellitesWithFilterUseCase,
+        satellite_dataprovider=satellite_dataprovider
     )

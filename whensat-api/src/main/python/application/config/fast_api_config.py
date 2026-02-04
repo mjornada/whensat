@@ -33,11 +33,13 @@ def create_api():
 
     from src.main.python.adapter.entrypoint.health_check import health_check_controller
     from src.main.python.adapter.entrypoint.health_check import projeto_controller
-    from src.main.python.adapter.entrypoint.satellite import satellite_ingest_controller, satellite_predict_controller
+    from src.main.python.adapter.entrypoint.satellite import satellite_ingest_controller, satellite_predict_controller, \
+        get_all_satellites_with_filter_controller
 
     app.include_router(health_check_controller.router)
     app.include_router(projeto_controller.router)
     app.include_router(satellite_ingest_controller.router)
     app.include_router(satellite_predict_controller.router)
+    app.include_router(get_all_satellites_with_filter_controller.router)
 
     return app

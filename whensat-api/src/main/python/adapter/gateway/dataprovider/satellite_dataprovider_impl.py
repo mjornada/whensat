@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
+from sqlalchemy import String, or_
 from sqlalchemy.orm import Session
 
 from src.main.python.domain.entity.satellite import Satellite
@@ -27,3 +28,19 @@ class SatelliteDataProviderImpl(SatelliteDataProvider):
         return self.db.query(Satellite).filter(
             Satellite.sat_norad_cat_id == norad_cat_id
         ).order_by(Satellite.sat_epoch.desc()).first()
+
+    async def find_all_with_filter(self, filter_value: Optional[str] = None):
+        query = self.db.query(
+            Satellite.sat_norad_cat_id,
+            Satellite.sat_object_name
+        ).distinct(Satellite.sat_norad_cat_id)
+
+        if filter_value:
+            query = query.filter(
+                or_(
+                    Satellite.sat_norad_cat_id.cast(String).like(f"%{filter_value}%"),
+                    Satellite.sat_object_name.ilike(f"%{filter_value}%")
+                )
+            )
+
+        return query.all()

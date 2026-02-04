@@ -16,3 +16,7 @@ class SatelliteDataProvider(ABC):
     @abstractmethod
     async def find_latest_by_norad_id(self, norad_cat_id: int) -> Optional[Satellite]:
         pass
+
+    @abstractmethod
+    async def find_all_with_filter(self, filter_value: Optional[str] = None):
+        pass
