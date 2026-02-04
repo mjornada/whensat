@@ -1,18 +1,20 @@
 from datetime import datetime
 
+from sqlalchemy import Column, Integer, String, DateTime
 
-class Satellite:
-    def __init__(self,
-                 sat_norad_cat_id: int | None = None,
-                 sat_object_name: str | None = None,
-                 sat_epoch: datetime | None = None,
-                 sat_tle_line_one: str | None = None,
-                 sat_tle_line_two: str | None = None,
-                 sat_created_at: datetime | None = None
-                 ) -> None:
-        self.sat_norad_cat_id = sat_norad_cat_id
-        self.sat_object_name = sat_object_name
-        self.sat_epoch = sat_epoch
-        self.sat_tle_line_one = sat_tle_line_one
-        self.sat_tle_line_two = sat_tle_line_two
-        self.sat_created_at = sat_created_at
+from src.main.python.application.config.db.base import Base
+
+
+class Satellite(Base):
+    __tablename__ = "tb_satellites"
+    __table_args__ = {"schema": "whensat"}
+
+    sat_norad_cat_id = Column(Integer, primary_key=True, autoincrement=False)
+    sat_epoch = Column(DateTime(timezone=False), primary_key=True)
+    sat_object_name = Column(String(255))
+    sat_tle_line_one = Column(String(69))
+    sat_tle_line_two = Column(String(69))
+    sat_created_at = Column(DateTime(timezone=False), default=datetime.utcnow)
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)

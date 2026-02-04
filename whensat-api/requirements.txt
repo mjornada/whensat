@@ -10,3 +10,4 @@ configparser
 dependency-injector
 pandas
 numpy
+httpx

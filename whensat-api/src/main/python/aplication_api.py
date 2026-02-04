@@ -127,4 +127,6 @@ if __name__ == "__main__":
                 log_config=LOGGING_CONFIG,
                 access_log=False,
                 use_colors=False,
+                timeout_keep_alive=300,
+                timeout_graceful_shutdown=300,
                 )
