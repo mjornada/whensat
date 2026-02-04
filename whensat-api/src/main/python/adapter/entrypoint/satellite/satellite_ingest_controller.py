@@ -7,10 +7,12 @@ from src.main.python.domain.usecase.satellite.ingest_satellite_data_usecase impo
 
 router = APIRouter(prefix="/satellites", tags=["satellites"])
 
+
+@router.get("/ingest")
 @router.post("/ingest")
 @inject
 async def ingest_satellites(
-    use_case: IngestSatelliteDataUseCase = Depends(Provide[Container.ingest_satellite_data_usecase])
+        use_case: IngestSatelliteDataUseCase = Depends(Provide[Container.ingest_satellite_data_usecase])
 ):
     result = await use_case.execute()
     return JSONResponse(
